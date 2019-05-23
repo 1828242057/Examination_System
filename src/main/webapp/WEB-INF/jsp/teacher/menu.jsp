@@ -5,10 +5,13 @@
 		<li><a
 			href="${pageContext.request.contextPath}/teacher/showCourse">我的课程</a></li>
 		<li><a
-			href="${pageContext.request.contextPath}/teacher/passwordRest">修改密码<sapn
-					class="glyphicon glyphicon-pencil pull-right" /></a></li>
-		<li><a href="${pageContext.request.contextPath}/logout">退出系统<sapn
-					class="glyphicon glyphicon-log-out pull-right" /></a></li>
-		<li class="disabled"><a href="##">Responsive</a></li>
+			href="${pageContext.request.contextPath}/teacher/showResponsive">反馈信息<span
+					class="glyphicon glyphicon-comment pull-right"></span></a></li>
+		<li><a
+			href="${pageContext.request.contextPath}/teacher/passwordRest">修改密码<span
+					class="glyphicon glyphicon-pencil pull-right"></span></a></li>
+		<li><a 
+			href="${pageContext.request.contextPath}/logout">退出系统<span
+					class="glyphicon glyphicon-log-out pull-right"></span></a></li>
 	</ul>
 </div>

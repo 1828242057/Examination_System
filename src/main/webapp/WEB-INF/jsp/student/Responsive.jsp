@@ -66,6 +66,6 @@
 	<%@include file="Footer.jsp"%>
 </body>
 <script type="text/javascript">
-		
+	$("#nav li:nth-child(5)").addClass("active")
 	</script>
 </html>

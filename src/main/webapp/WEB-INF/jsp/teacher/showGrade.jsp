@@ -92,11 +92,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="container" id="footer">
-		<div class="row">
-			<div class="col-md-12"></div>
-		</div>
-	</div>
 	<%@include file="Footer.jsp"%>
 </body>
 <script type="text/javascript">

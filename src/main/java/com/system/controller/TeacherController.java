@@ -83,6 +83,18 @@ public class TeacherController {
         return "teacher/passwordRest";
     }
 
+    //反馈信息  待修改  --廖永杰
+    @RequestMapping(value = "/showResponsive")
+    public String showResponsive() throws Exception {
+        return "teacher/showResponsive";
+    }
+    
+    //处理反馈信息  待修改  --廖永杰
+    @RequestMapping(value = "/showFeedtext")
+    public String showFeedtext() throws Exception {
+        return "teacher/showFeedtext";
+    }
+    
     @RequestMapping(value = "selectCourse", method = {RequestMethod.POST})
     private String selectCourse(String findByName, Model model) throws Exception {
 
