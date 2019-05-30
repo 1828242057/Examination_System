@@ -3,15 +3,18 @@ package com.system.controller;
 import com.system.exception.CustomException;
 import com.system.po.*;
 import com.system.service.CourseService;
+import com.system.service.FeedbackService;
 import com.system.service.SelectedCourseService;
 import com.system.service.StudentService;
 import com.system.service.TeacherService;
+import com.system.service.ScoresService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +26,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/teacher")
 public class TeacherController {
+	
+	@Resource(name = "feedbackServiceImpl")
+	private FeedbackService feedbackService;
 
     @Resource(name = "teacherServiceImpl")
     private TeacherService teacherService;
@@ -32,6 +38,9 @@ public class TeacherController {
 
     @Resource(name = "selectedCourseServiceImpl")
     private SelectedCourseService selectedCourseService;
+    
+    @Resource(name = "scoresServiceImpl")
+    private ScoresService scoresService;
 
     // 显示我的课程
     @RequestMapping(value = "/showCourse")
@@ -53,6 +62,14 @@ public class TeacherController {
             return "";
         }
         List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+        Scores scores;
+        for(SelectedCourseCustom scc:list) {
+        	scores=scoresService.findByID(scc.getId());
+        	scc.setAttendancescores(scores.getAttendancescores());
+        	scc.setBoardscores(scores.getBoardscores());
+        	scc.setHomeworkscores(scores.getHomeworkscores());
+        	scc.setExperimentalscores(scores.getExperimentalscores());
+        }
         model.addAttribute("selectedCourseList", list);
         return "teacher/showGrade";
     }
@@ -71,8 +88,15 @@ public class TeacherController {
     // 打分
     @RequestMapping(value = "/mark", method = {RequestMethod.POST})
     public String mark(SelectedCourseCustom scc) throws Exception {
-    	scc.setMark(scc.getRegulargrade()+scc.getBoardscores());
+    	scc.setMark(scc.getAttendancescores()+scc.getBoardscores()+scc.getExperimentalscores()+scc.getHomeworkscores());
         selectedCourseService.updataOne(scc);
+        Scores scores=new Scores();
+        scores.setAttendancescores(scc.getAttendancescores());
+        scores.setBoardscores(scc.getBoardscores());
+        scores.setExperimentalscores(scc.getExperimentalscores());
+        scores.setHomeworkscores(scc.getHomeworkscores());
+        scores.setSelectedcourseid(scc.getId());
+        scoresService.updateOne(scores);
 
         return "redirect:/teacher/gradeCourse?id="+scc.getCourseid();
     }
@@ -83,18 +107,6 @@ public class TeacherController {
         return "teacher/passwordRest";
     }
 
-    //反馈信息  待修改  --廖永杰
-    @RequestMapping(value = "/showResponsive")
-    public String showResponsive() throws Exception {
-        return "teacher/showResponsive";
-    }
-    
-    //处理反馈信息  待修改  --廖永杰
-    @RequestMapping(value = "/showFeedtext")
-    public String showFeedtext() throws Exception {
-        return "teacher/showFeedtext";
-    }
-    
     @RequestMapping(value = "selectCourse", method = {RequestMethod.POST})
     private String selectCourse(String findByName, Model model) throws Exception {
 
@@ -102,5 +114,34 @@ public class TeacherController {
 
         model.addAttribute("courseList", list);
         return "teacher/showCourse";
+    }
+	
+	 //反馈信息  待修改  --廖永杰
+    @RequestMapping(value = "/showResponsive")
+    public String showResponsive(Model model) throws Exception {
+		Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+		List<Feedback> list = feedbackService.findByTeacherID(Integer.parseInt(username));
+		model.addAttribute("feedbackList", list);
+		
+        return "teacher/showResponsive";
+    }
+    
+    //处理反馈信息  待修改  --廖永杰
+    @RequestMapping(value = "/showFeedtext", method = {RequestMethod.GET})
+    public String showFeedtext(Integer id, Model model) throws Exception {
+		Feedback feedback =feedbackService.findByID(id);
+		model.addAttribute("feedback", feedback);
+        return "teacher/showFeedtext";
+    }
+	
+	//处理反馈信息  待修改  --廖永杰
+    @RequestMapping(value = "/showFeedtext", method = {RequestMethod.POST})
+    public String feedbackProcessed(Feedback feedback) throws Exception {
+		Feedback fb =feedbackService.findByID(feedback.getId());
+		fb.setProcessed(true);
+		fb.setProcesstext(feedback.getProcesstext());
+		feedbackService.update(fb);
+        return "redirect:showResponsive";
     }
 }

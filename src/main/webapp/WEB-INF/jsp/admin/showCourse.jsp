@@ -40,12 +40,16 @@
 										onclick="document.getElementById('form1').submit" id="sub">搜索</span>
 								</div>
 							</form>
-							<button class="btn btn-default col-md-2" style="margin-top: 20px"
-								onClick="location.href='${pageContext.request.contextPath}/admin/addCourse'">
-								添加课程信息
-								<sapn class="glyphicon glyphicon-plus" />
-							</button>
-
+							<div class="btn-group">
+									<button class="btn btn-default" style="margin-top: 20px">导入课程信息</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle" style="margin-top: 20px">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath}/admin/addCourse">手动导入</a></li>
+										<li><a href="${pageContext.request.contextPath}/admin/courseUpload">文件导入</a></li>
+									</ul>
+							</div>
 						</div>
 					</div>
 					<table class="table table-bordered">
@@ -59,8 +63,10 @@
 								<th>周数</th>
 								<th>课程类型</th>
 								<th>学分</th>
-								<th>平时分</th>
-								<th>考试分</th>
+								<th>考试成绩</th>
+								<th>作业成绩</th>
+								<th>出勤成绩</th>
+								<th>实验成绩</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -75,8 +81,10 @@
 									<td>${item.courseweek}</td>
 									<td>${item.coursetype}</td>
 									<td>${item.score}</td>
-									<td>${item.regulargrade}</td>
 									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
 											onClick="location.href='${pageContext.request.contextPath}/admin/editCourse?id=${item.courseid}'">修改</button>

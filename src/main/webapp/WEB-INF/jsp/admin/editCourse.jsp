@@ -110,17 +110,31 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">平时分：</label>
+								<label for="inputEmail3" class="col-sm-2 control-label">考试成绩：</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" name="regulargrade"
-										value="${course.regulargrade}" placeholder="请输入平时分">
+									<input type="number" class="form-control" name="boardscores"
+										value="${course.boardscores}" placeholder="请输入考试成绩">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">考试分：</label>
+								<label for="inputEmail3" class="col-sm-2 control-label">作业成绩：</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" name="boardscores"
-										value="${course.boardscores}" placeholder="请输入考试分">
+									<input type="number" class="form-control" name="homeworkscores"
+										value="${course.homeworkscores}" placeholder="请输入作业成绩">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">出勤成绩：</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" name="attendancescores"
+										value="${course.attendancescores}" placeholder="请输入出勤成绩">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">实验成绩：</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" name="experimentalscores"
+										value="${course.experimentalscores}" placeholder="请输入实验成绩">
 								</div>
 							</div>
 							<div class="form-group" style="text-align: center">

@@ -11,9 +11,10 @@
     <result column="courseType" property="coursetype" jdbcType="VARCHAR" />
     <result column="collegeID" property="collegeid" jdbcType="INTEGER" />
     <result column="score" property="score" jdbcType="INTEGER" />
-    <result column="regularGrade" property="regulargrade" jdbcType="INTEGER" />
     <result column="boardScores" property="boardscores" jdbcType="INTEGER" />
-    <result column="teacherName" property="teachername" jdbcType="INTEGER" />
+    <result column="homeworkScores" property="homeworkscores" jdbcType="INTEGER" />
+    <result column="attendanceScores" property="attendancescores" jdbcType="INTEGER" />
+    <result column="experimentalScores" property="experimentalscores" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     courseID, courseName, teacherID, courseTime, classRoom, courseWeek, courseType, collegeID, 
-    score,regularGrade,boardScores,teacherName
+    score,teacherName,boardScores,homeworkScores,attendanceScores,experimentalScores
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.CourseExample" >
     select
@@ -108,23 +109,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.system.po.Course" >
-    insert into course (courseID, courseName, teacherID, 
+    insert into course (courseName, teacherID, 
       courseTime, classRoom, courseWeek, 
-      courseType, collegeID, score, regularGrade,
-       boardScores,teacherName
+      courseType, collegeID, score,
+      teacherName,boardScores,homeworkScores,attendanceScores,experimentalScores
       )
-    values (#{courseid,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR}, #{teacherid,jdbcType=INTEGER}, 
+    values (#{coursename,jdbcType=VARCHAR}, #{teacherid,jdbcType=INTEGER}, 
       #{coursetime,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{courseweek,jdbcType=INTEGER}, 
       #{coursetype,jdbcType=VARCHAR}, #{collegeid,jdbcType=INTEGER}, #{score,jdbcType=INTEGER},
-      #{regulargrade,jdbcType=INTEGER}, #{boardscores,jdbcType=INTEGER}, #{teachername,jdbcType=INTEGER}
+      #{teachername,jdbcType=INTEGER},#{boardscores,jdbcType=INTEGER},
+      #{homeworkscores,jdbcType=INTEGER}, #{attendancescores,jdbcType=INTEGER}, #{experimentalscores,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.system.po.Course" >
     insert into course
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="courseid != null" >
-        courseID,
-      </if>
       <if test="coursename != null" >
         courseName,
       </if>
@@ -149,20 +148,23 @@
       <if test="score != null" >
         score,
       </if>
-      <if test="regulargrade != null" >
-        regularGrade,
+      <if test="teachername != null" >
+        teacherName,
       </if>
       <if test="boardscores != null" >
         boardScores,
       </if>
-      <if test="teachername != null" >
-        teachername
+      <if test="homeworkscores != null" >
+        homeworkScores,
+      </if>
+      <if test="attendancescores != null" >
+        attendanceScores,
+      </if>
+      <if test="experimentalscores != null" >
+        experimentalScores
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="courseid != null" >
-        #{courseid,jdbcType=INTEGER},
-      </if>
       <if test="coursename != null" >
         #{coursename,jdbcType=VARCHAR},
       </if>
@@ -194,7 +196,22 @@
         #{boardscores,jdbcType=INTEGER},
       </if>
       <if test="teachername != null" >
-        #{teachername,jdbcType=INTEGER}
+        #{teachername,jdbcType=INTEGER},
+      </if>
+      <if test="teachername != null" >
+        #{experimentalscores,jdbcType=INTEGER},
+      </if>
+      <if test="boardscores != null" >
+        #{boardscores,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkscores != null" >
+        #{homeworkscores,jdbcType=INTEGER},
+      </if>
+      <if test="attendancescores != null" >
+        #{attendancescores,jdbcType=INTEGER},
+      </if>
+      <if test="experimentalscores != null" >
+        #{experimentalscores,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
@@ -234,14 +251,20 @@
       <if test="record.score != null" >
         score = #{record.score,jdbcType=INTEGER},
       </if>
-      <if test="regulargrade != null" >
-        regularGrade = #{record.regulargrade,jdbcType=INTEGER},
+      <if test="teachername != null" >
+        teacherName = #{record.teachername,jdbcType=INTEGER},
       </if>
       <if test="boardscores != null" >
         boardScores = #{record.boardscores,jdbcType=INTEGER},
       </if>
-      <if test="teachername != null" >
-        teacherName = #{record.teachername,jdbcType=INTEGER}
+      <if test="homeworkscores != null" >
+        homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
+      </if>
+      <if test="attendancescores != null" >
+        attendanceScores = #{record.attendancescores,jdbcType=INTEGER},
+      </if>
+      <if test="experimentalscores != null" >
+        experimentalScores = #{record.experimentalscores,jdbcType=INTEGER}
       </if>
     </set>
     <if test="_parameter != null" >
@@ -259,9 +282,11 @@
       courseType = #{record.coursetype,jdbcType=VARCHAR},
       collegeID = #{record.collegeid,jdbcType=INTEGER},
       score = #{record.score,jdbcType=INTEGER},
-      regularGrade = #{record.regulargrade,jdbcType=INTEGER},
       boardScores = #{record.boardscores,jdbcType=INTEGER},
-      teacherName = #{record.teachername,jdbcType=INTEGER}
+      teacherName = #{record.teachername,jdbcType=INTEGER},
+      homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
+      experimentalScores = #{record.experimentalscores,jdbcType=INTEGER},
+      attendanceScores = #{record.attendancescores,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,14 +318,20 @@
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
       </if>
-      <if test="regulargrade != null" >
-        regularGrade = #{regulargrade,jdbcType=INTEGER},
+      <if test="teachername != null" >
+        teacherName = #{teachername,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkscores != null" >
+        homeworkScores = #{homeworkscores,jdbcType=INTEGER},
       </if>
       <if test="boardscores != null" >
         boardScores = #{boardscores,jdbcType=INTEGER},
       </if>
-      <if test="teachername != null" >
-        teacherName = #{teachername,jdbcType=INTEGER}
+      <if test="experimentalscores != null" >
+        experimentalScores = #{experimentalscores,jdbcType=INTEGER},
+      </if>
+      <if test="attendancescores != null" >
+        attendanceScores = #{attendancescores,jdbcType=INTEGER}
       </if>
     </set>
     where courseID = #{courseid,jdbcType=INTEGER}
@@ -315,9 +346,11 @@
       courseType = #{coursetype,jdbcType=VARCHAR},
       collegeID = #{collegeid,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},
-      regularGrade=#{regulargrade,jdbcType=INTEGER},
-      boardScores = #{boardscores,jdbcType=INTEGER},
-      teacherName = #{teachername,jdbcType=INTEGER}
+      teacherName = #{teachername,jdbcType=INTEGER},
+      homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
+      boardScores = #{record.boardscores,jdbcType=INTEGER},
+      experimentalScores = #{record.experimentalscores,jdbcType=INTEGER},
+      attendanceScores = #{record.attendancescores,jdbcType=INTEGER}
     where courseID = #{courseid,jdbcType=INTEGER}
   </update>
 </mapper>

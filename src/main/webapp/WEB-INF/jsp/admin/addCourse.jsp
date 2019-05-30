@@ -33,13 +33,6 @@
 							action="${pageContext.request.contextPath}/admin/addCourse"
 							id="editfrom" method="post">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">课程号</label>
-								<div class="col-sm-10">
-									<input type="number" class="form-control" id="inputEmail3"
-										name="courseid" placeholder="请输入课程号">
-								</div>
-							</div>
-							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">课程名称</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputPassword3"
@@ -108,17 +101,31 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">平时分：</label>
+								<label for="inputEmail3" class="col-sm-2 control-label">考试满分：</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" name="regulargrade"
-										placeholder="请输入平时分">
+									<input type="number" class="form-control" name="boardscores"
+										placeholder="请输入考试满分">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">考试分：</label>
+								<label for="inputEmail3" class="col-sm-2 control-label">作业满分：</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" name="boardscores"
-										placeholder="请输入考试分">
+									<input type="number" class="form-control" name="homeworkscores"
+										placeholder="请输入作业满分">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">出勤满分：</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" name="attendancescores"
+										placeholder="请输入出勤满分">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">实验满分：</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" name="experimentalscores"
+										placeholder="请输入实验满分">
 								</div>
 							</div>
 							<div class="form-group" style="text-align: center">

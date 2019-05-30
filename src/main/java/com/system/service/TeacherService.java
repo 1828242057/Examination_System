@@ -1,8 +1,6 @@
 package com.system.service;
 
-import com.system.mapper.TeacherMapper;
 import com.system.po.TeacherCustom;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

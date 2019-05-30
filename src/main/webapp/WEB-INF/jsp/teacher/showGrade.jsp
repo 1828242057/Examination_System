@@ -30,6 +30,18 @@
 					<div class="panel-heading">
 						<div class="row">
 							<h1 class="col-md-5">已选该课程学生名单</h1>
+							<div class="btn-group" style="margin: 25px 40px 10px 0;float:right;">
+									<button class="btn btn-default">导入导出成绩</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath}/teacher/scoresUpload?courseid=${courseid}">导入</a></li>
+										<!-- 导出还未实现，待补充！ -->
+										<li><a href="">导出</a></li>
+									</ul>
+							</div>
+						
 						</div>
 					</div>
 					<table class="table table-bordered">
@@ -37,8 +49,10 @@
 							<tr>
 								<th>学号</th>
 								<th>姓名</th>
-								<th>平时成绩</th>
 								<th>考试成绩</th>
+								<th>作业成绩</th>
+								<th>出勤成绩</th>
+								<th>实验成绩</th>
 								<th>总成绩</th>
 								<th>操作</th>
 							</tr>
@@ -48,8 +62,10 @@
 								<tr>
 									<td>${item.studentCustom.userid}</td>
 									<td>${item.studentCustom.username}</td>
-									<td>${item.regulargrade}</td>
 									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
 									<td>${item.mark}</td>
 									<td>
 									<button class="btn btn-default btn-xs btn-info" onClick="location.href='${pageContext.request.contextPath}/teacher/mark?studentid=${item.studentid}&courseid=${item.courseid}'">打分</button>
@@ -90,6 +106,11 @@
 				</div>
 
 			</div>
+		</div>
+	</div>
+	<div class="container" id="footer">
+		<div class="row">
+			<div class="col-md-12"></div>
 		</div>
 	</div>
 	<%@include file="Footer.jsp"%>

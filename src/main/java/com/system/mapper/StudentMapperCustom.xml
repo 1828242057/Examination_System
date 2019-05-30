@@ -21,11 +21,10 @@
             ofType：映射到集合属性中 pojo 的类型
         -->
         <collection property="selectedCourseList" ofType="SelectedCourseCustom">
+       		<id column="ID" property="id"/>
             <result column="courseID" property="courseid"/>
             <result column="studentID" property="studentid"/>
             <result column="mark" property="mark"/>
-            <result column="boardScores" property="boardscores"/>
-            <result column="regularGrade" property="regulargrade"/>
             <!--配置映射的关系的课程信息-->
             <association property="courseCustom" javaType="CourseCustom">
                 <id column="courseID" property="courseid"/>
@@ -37,13 +36,14 @@
                 <result column="courseType" property="coursetype"/>
                 <result column="collegeID" property="collegeid"/>
                 <result column="score" property="score"/>
+                <result column="teacherName" property="teachername"/>
                 <result column="boardScores" property="boardscores"/>
-            	<result column="regularGrade" property="regulargrade"/>
-            	<result column="teacherName" property="teachername"/>
+            	<result column="homeworkScores" property="homeworkscores"/>
+            	<result column="attendanceScores" property="attendancescores"/>
+            	<result column="experimentalScores" property="experimentalscores"/>
             </association>
         </collection>
     </resultMap>
-
     <select id="findByPaging" parameterType="PagingVO" resultType="StudentCustom">
         select student.*, college.collegeName
         from student, college
@@ -54,7 +54,7 @@
     <select id="findStudentAndSelectCourseListById" parameterType="int" resultMap="StudentAndSelectCourseResultMap">
         SELECT
           student.*,
-          selectedcourse.*,
+          selectedcourse.id,selectedcourse.courseid,selectedcourse.studentid,selectedcourse.mark,
           course.*
         FROM
           student,

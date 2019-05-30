@@ -14,9 +14,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-/**
- * Created by Jacey on 2017/6/30.
- */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -41,7 +38,6 @@ public class AdminController {
     //  学生信息显示
     @RequestMapping("/showStudent")
     public String showStudent(Model model, Integer page) throws Exception {
-
         List<StudentCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
@@ -57,7 +53,6 @@ public class AdminController {
 
         model.addAttribute("studentList", list);
         model.addAttribute("pagingVO", pagingVO);
-
         return "admin/showStudent";
 
     }
@@ -93,6 +88,13 @@ public class AdminController {
         //重定向
         return "redirect:/admin/showStudent";
     }
+    
+    // 添加学生信息操作 文件导入选择界面  待修改
+    @RequestMapping(value = "/stuUpload", method = {RequestMethod.GET})
+    public String stuUpload(Model model) throws Exception {
+        return "admin/stuUpload";
+    }
+
 
     // 修改学生信息页面显示
     @RequestMapping(value = "/editStudent", method = {RequestMethod.GET})
@@ -257,6 +259,12 @@ public class AdminController {
         model.addAttribute("teacherList", list);
         return "admin/showTeacher";
     }
+    
+    // 添加教师信息操作
+    @RequestMapping(value = "/teaUpload", method = {RequestMethod.GET})
+    public String teaUpload(Model model) throws Exception {
+        return "admin/teaUpload";
+    }
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<课程操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -369,6 +377,12 @@ public class AdminController {
         model.addAttribute("courseList", list);
         return "admin/showCourse";
     }
+    
+    // 添加课程信息操作
+    @RequestMapping(value = "/courseUpload", method = {RequestMethod.GET})
+    public String courseUpload(Model model) throws Exception {
+        return "admin/courseUpload";
+    }
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<其他操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -402,6 +416,5 @@ public class AdminController {
     public String passwordRestUI() throws Exception {
         return "admin/passwordRest";
     }
-
 
 }

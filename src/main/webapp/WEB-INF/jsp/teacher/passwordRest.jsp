@@ -63,10 +63,15 @@
 			</div>
 		</div>
 	</div>
+	<div class="container" id="footer">
+		<div class="row">
+			<div class="col-md-12"></div>
+		</div>
+	</div>
 	<%@include file="Footer.jsp"%>
 </body>
 <script>
-    $("#nav li:nth-child(3)").addClass("active")
+    $("#nav li:nth-child(2)").addClass("active")
     function check() {
         if(reset.oldPassword.value==""||reset.oldPassword.value==null)
         {alert("请输入旧账户密码");return false;}

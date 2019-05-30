@@ -54,8 +54,10 @@
 								<th>周数</th>
 								<th>课程类型</th>
 								<th>学分</th>
-								<th>平时分</th>
-								<th>考试分</th>
+								<th>考试成绩</th>
+								<th>作业成绩</th>
+								<th>出勤成绩</th>
+								<th>实验成绩</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -70,8 +72,10 @@
 									<td>${item.courseweek}</td>
 									<td>${item.coursetype}</td>
 									<td>${item.score}</td>
-									<td>${item.regulargrade}</td>
 									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
 											onClick="location.href='${pageContext.request.contextPath}/student/stuSelectedCourse?id=${item.courseid}'">选课</button>

@@ -1,7 +1,6 @@
 package com.system.service;
 
 import com.system.po.SelectedCourseCustom;
-import com.system.po.StudentCustom;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public interface SelectedCourseService {
     List<SelectedCourseCustom> findByStudentID(Integer id) throws Exception;
 
     //退课
-    void remove(SelectedCourseCustom selectedCourseCustom) throws Exception;
+    void remove(Integer id) throws Exception;
 
 
 

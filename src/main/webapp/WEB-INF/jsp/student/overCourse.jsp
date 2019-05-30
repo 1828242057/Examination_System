@@ -54,14 +54,13 @@
 								<th>课程号</th>
 								<th>课程名称</th>
 								<th>授课老师</th>
-								<th>上课时间</th>
-								<th>上课地点</th>
-								<th>周数</th>
 								<th>课程类型</th>
 								<th>学分</th>
-								<th>平时成绩</th>
 								<th>考试成绩</th>
-								<th>成绩</th>
+								<th>作业成绩</th>
+								<th>出勤成绩</th>
+								<th>实验成绩</th>
+								<th>总成绩</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,13 +71,12 @@
 										<td>${item.couseCustom.courseid}</td>
 										<td>${item.couseCustom.coursename}</td>
 										<td>${item.couseCustom.teachername}</td>
-										<td>${item.couseCustom.coursetime}</td>
-										<td>${item.couseCustom.classroom}</td>
-										<td>${item.couseCustom.courseweek}</td>
 										<td>${item.couseCustom.coursetype}</td>
 										<td>${item.couseCustom.score}</td>
-										<td style="color: red">${item.regulargrade}</td>
 										<td style="color: red">${item.boardscores}</td>
+										<td style="color: red">${item.homeworkscores}</td>
+										<td style="color: red">${item.attendancescores}</td>
+										<td style="color: red">${item.experimentalscores}</td>
 										<td style="color: red">${item.mark}</td>
 									</tr>
 								</c:if>

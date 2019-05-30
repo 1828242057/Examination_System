@@ -20,8 +20,8 @@
 </head>
 <body>
 	<!-- 顶栏 -->
-
-	<!-- 中间主体 --><jsp:include page="top.jsp"></jsp:include>
+	<jsp:include page="top.jsp"></jsp:include>
+	<!-- 中间主体 -->
 	<div class="container" id="content">
 		<div class="row">
 			<jsp:include page="menu.jsp"></jsp:include>
@@ -40,12 +40,16 @@
 										onclick="document.getElementById('form1').submit" id="sub">搜索</span>
 								</div>
 							</form>
-							<button class="btn btn-default col-md-2" style="margin-top: 20px"
-								onClick="location.href='${pageContext.request.contextPath}/admin/addTeacher'">
-								添加教师信息
-								<sapn class="glyphicon glyphicon-plus" />
-							</button>
-
+							<div class="btn-group">
+									<button class="btn btn-default" style="margin-top: 20px">导入教师信息</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle" style="margin-top: 20px">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath}/admin/addTeacher">手动导入</a></li>
+										<li><a href="${pageContext.request.contextPath}/admin/teaUpload">文件导入</a></li>
+									</ul>
+							</div>
 						</div>
 					</div>
 					<table class="table table-bordered">

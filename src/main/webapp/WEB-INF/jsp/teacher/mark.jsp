@@ -33,6 +33,13 @@
 							<div class="form-group">
 								<div class="col-sm-10">
 									<input readonly="readonly" type="hidden" class="form-control"
+										name="id" id="inputEmail3"
+										value="${selectedCourse.id}">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input readonly="readonly" type="hidden" class="form-control"
 										name="courseid" id="inputEmail3"
 										value="${selectedCourse.courseid}">
 								</div>
@@ -54,16 +61,30 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">平时成绩</label>
+								<label for="inputPassword3" class="col-sm-2 control-label">考试成绩</label>
 								<div class="col-sm-10">
-									<input type="number" name="regulargrade" class="form-control"
+									<input type="number" name="boardscores" class="form-control"
 										id="inputPassword3" placeholder="请输入成绩">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">考试成绩</label>
+								<label for="inputPassword3" class="col-sm-2 control-label">作业成绩</label>
 								<div class="col-sm-10">
-									<input type="number" name="boardscores" class="form-control"
+									<input type="number" name="homeworkscores" class="form-control"
+										id="inputPassword3" placeholder="请输入成绩">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword3" class="col-sm-2 control-label">出勤成绩</label>
+								<div class="col-sm-10">
+									<input type="number" name="attendancescores" class="form-control"
+										id="inputPassword3" placeholder="请输入成绩">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword3" class="col-sm-2 control-label">实验成绩</label>
+								<div class="col-sm-10">
+									<input type="number" name="experimentalscores" class="form-control"
 										id="inputPassword3" placeholder="请输入成绩">
 								</div>
 							</div>
@@ -77,6 +98,11 @@
 				</div>
 
 			</div>
+		</div>
+	</div>
+	<div class="container" id="footer">
+		<div class="row">
+			<div class="col-md-12"></div>
 		</div>
 	</div>
 	<%@include file="Footer.jsp"%>

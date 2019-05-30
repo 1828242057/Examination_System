@@ -40,12 +40,16 @@
 										id="sub">搜索</span>
 								</div>
 							</form>
-							<button class="btn btn-default col-md-2" style="margin-top: 20px"
-								onClick="location.href='${pageContext.request.contextPath}/admin/addStudent'">
-								添加用户信息
-								<sapn class="glyphicon glyphicon-plus" />
-							</button>
-
+							<div class="btn-group">
+									<button class="btn btn-default" style="margin-top: 20px">导入学生信息</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle" style="margin-top: 20px">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath}/admin/addStudent">手动导入</a></li>
+										<li><a href="${pageContext.request.contextPath}/admin/stuUpload">文件导入</a></li>
+									</ul>
+							</div>
 						</div>
 					</div>
 					<table class="table table-bordered">
@@ -134,7 +138,7 @@
                 return false;
             }
         };
-
+        
         $("#sub").click(function () {
             $("#form1").submit();
         });

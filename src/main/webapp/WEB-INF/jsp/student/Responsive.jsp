@@ -32,24 +32,22 @@
 					</div>
 					<div class="panel-body">
 						<form name="reset" class="form-horizontal" role="form"
-							action="${pageContext.request.contextPath}/Responsive"
+							action="${pageContext.request.contextPath}/student/Responsive"
 							id="editfrom" method="post" onsubmit="return check()">
 							<div class="form-group">
 								<label class="col-sm-2 control-label">请选择课程</label>
 								<div class="col-sm-5">
-									<select class="form-control" name="selectcourse">
-										<option>jQuery获取已修课程列表</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select class="form-control" name="courseid">
+										<c:forEach items="${selectedCourseCustomList}" var="item">
+											<option value="${item.couseCustom.courseid}">${item.couseCustom.coursename}</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">反馈内容</label>
 								<div class="col-sm-10">
-									<textarea name="content" class="form-control"
+									<textarea name="feedbacktext" class="form-control"
 										style="height: 200px" placeholder="请输入内容"></textarea>
 								</div>
 							</div>
@@ -66,6 +64,6 @@
 	<%@include file="Footer.jsp"%>
 </body>
 <script type="text/javascript">
-	$("#nav li:nth-child(5)").addClass("active")
+		
 	</script>
 </html>

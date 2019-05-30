@@ -1,11 +1,23 @@
 package com.system.po;
 
 public class Selectedcourse {
+	private Integer id;
+	
     private Integer courseid;
 
     private Integer studentid;
 
     private Integer mark;
+    
+	
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getCourseid() {
         return courseid;

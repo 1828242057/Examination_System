@@ -2,6 +2,7 @@ package com.system.service.impl;
 
 import com.system.mapper.SelectedcourseMapper;
 import com.system.mapper.StudentMapper;
+import com.system.mapper.ScoresMapper;
 import com.system.po.*;
 import com.system.service.CourseService;
 import com.system.service.SelectedCourseService;
@@ -24,6 +25,9 @@ public class SelectedCourseServiceImpl implements SelectedCourseService {
 
     @Autowired
     private StudentMapper studentMapper;
+    
+    @Autowired
+    private ScoresMapper scoresMapper;
 
 //    @Resource(name = "courseServiceImpl")
 //    private CourseService courseService;
@@ -117,14 +121,8 @@ public class SelectedCourseServiceImpl implements SelectedCourseService {
         return null;
     }
 
-    public void remove(SelectedCourseCustom selectedCourseCustom) throws Exception {
-        SelectedcourseExample example = new SelectedcourseExample();
-        SelectedcourseExample.Criteria criteria = example.createCriteria();
-
-        criteria.andCourseidEqualTo(selectedCourseCustom.getCourseid());
-        criteria.andStudentidEqualTo(selectedCourseCustom.getStudentid());
-
-        selectedcourseMapper.deleteByExample(example);
+    public void remove(Integer id) throws Exception {
+        selectedcourseMapper.deleteByID(id);
     }
 
 }

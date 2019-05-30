@@ -36,45 +36,35 @@
 					<table data-toggle="table">
 						<thead>
 							<tr>
-								<th data-align="center">发送者</th>
-								<th data-align="center">相关课程</th>
-								<th data-align="center">内容</th>
+								<th data-align="center">学生</th>
+								<th data-align="center">课程</th>
+								<th data-align="center">日期</th>
 								<th data-align="center">时间</th>
 								<th data-align="center">处理状态</th>
 								<th data-align="center">操作</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${feedbackList}" var="item">
 								<tr>
-									<td>132</td>
-									<td>132</td>
-									<td>123</td>
-									<td>123</td>
-									<td>0</td>
-									<td><a 
-										href="${pageContext.request.contextPath}/teacher/showFeedtext">
-										<span class="glyphicon glyphicon-check">查看</span></a></td>
+									<td>${item.studentname}</td>
+									<td>${item.coursename}</td>
+									<td>${item.feedbackdate}</td>
+									<td>${item.feedbacktime}</td>
+									<c:choose>
+										<c:when test="${item.processed == true}">
+											<td>已处理</td>
+										</c:when>
+										<c:otherwise> 
+											<td>未处理</td>
+										</c:otherwise> 
+									</c:choose>
+									<td>
+											<button class="btn btn-default btn-xs btn-info"
+											onClick="location.href='${pageContext.request.contextPath}/teacher/showFeedtext?id=${item.id}'">查看</button>
+									</td>
 								</tr>
-								<tr>
-									<td>132</td>
-									<td>132</td>
-									<td>123</td>
-									<td>123</td>
-									<td>0</td>
-									<td><a 
-										href="${pageContext.request.contextPath}/teacher/showFeedtext">
-										<span class="glyphicon glyphicon-check">查看</span></a></td>
-								</tr>
-								<tr>
-									<td>132</td>
-									<td>132</td>
-									<td>123</td>
-									<td>123</td>
-									<td>0</td>
-									<td><a 
-										href="${pageContext.request.contextPath}/teacher/showFeedtext">
-										<span class="glyphicon glyphicon-check">查看</span></a></td>
-								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

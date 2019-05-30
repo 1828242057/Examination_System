@@ -36,22 +36,50 @@
 					</div>
 					<div class="panel-body">
 						<form name="dealFeed" class="form-horizontal" role="form"
-							action="#" 
+							action="${pageContext.request.contextPath}/teacher/showFeedtext" 
 							id="viewfrom" method="post"> <!-- 处理完成后要修改状态值 -->
 							<div class="form-group">
-								<label class="col-sm-2 control-label">具体内容:</label>
 								<div class="col-sm-10">
-									<textarea id="ct" rows="10" cols="80" readonly >
+									<input readonly="readonly" type="hidden" class="form-control"
+										name="id" id="inputEmail3"
+										value="${feedback.id}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">反馈内容:</label>
+								<div class="col-sm-10">
+									<textarea id="ct" rows="10" name="feedbacktext" cols="80" readonly style="color:gray;">
 									</textarea>
 								</div>
 								<script type="text/javascript">
 								//要实现内容为反馈表中的内容  cscs替代
-									$("#ct").val("cscscscscs");  
+									$("#ct").val("${feedback.feedbacktext}");  
 								</script>
 							</div>
-							<div class="form-group" style="text-align: center">
-								<button class="btn btn-default" type="submit">处理完成</button>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">处理结果:</label>
+								<div class="col-sm-10">
+									<c:choose>
+										<c:when test="${feedback.processed ==false}">
+											<textarea id="processResult" name="processtext" rows="10" cols="80" >
+											</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea id="processResult" name="processtext" rows="10" cols="80" readonly style="color:gray;">
+											</textarea>
+										</c:otherwise>
+									</c:choose>
+								</div>
 							</div>
+							<script type="text/javascript">
+								//要实现内容为反馈表中的内容  cscs替代
+									$("#processResult").val("${feedback.processtext}");  
+							</script>
+							<c:if test="${feedback.processed ==false}">
+								<div class="form-group" style="text-align: center">
+									<button class="btn btn-default" type="submit">处理完成</button>
+								</div>
+							</c:if>
 						</form>
 					</div>
 				</div>
@@ -60,7 +88,7 @@
 	</div>
 	<%@include file="Footer.jsp"%>
 </body>
-<script type="text/javascript">
+	<script type="text/javascript">
 		<%--设置菜单中--%>
 		$("#nav li:nth-child(2)").addClass("active")
         function returnlist() {

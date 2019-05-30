@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.ScoresMapper" >
+  <resultMap id="BaseResultMap" type="com.system.po.Scores" >
+  	<id column="selectedcourseID" property="selectedcourseid" jdbcType="INTEGER" />
+    <result column="boardScores" property="boardscores" jdbcType="INTEGER" />
+    <result column="homeworkScores" property="homeworkscores" jdbcType="INTEGER" />
+    <result column="attendanceScores" property="attendancescores" jdbcType="INTEGER" />
+    <result column="experimentalScores" property="experimentalscores" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    selectedcourseID, boardScores, homeworkScores, attendanceScores, experimentalScores
+  </sql>
+  <select id="selectByID" resultMap="BaseResultMap" parameterType="INTEGER">
+  	select 
+  	<include refid="Base_Column_List" />
+    from scores
+    where selectedcourseID = #{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateByExample" parameterType="map">
+    update scores
+    set selectedcourseID = #{record.selectedcourseid,jdbcType=INTEGER},
+      	boardScores = #{record.boardscores,jdbcType=INTEGER},
+      	homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
+      	attendanceScores = #{record.attendancescores,jdbcType=INTEGER},
+      	experimentalScores = #{record.experimentalscores,jdbcType=INTEGER}
+     <include refid="Update_By_Example_Where_Clause" />
+  </update>
+  
+  <insert id="insert" parameterType="com.system.po.Scores" >
+    insert into scores (selectedcourseID, boardScores, homeworkScores, attendanceScores,experimentalScores
+      )
+    values (#{selectedcourseid,jdbcType=INTEGER}, #{boardscores,jdbcType=INTEGER}, #{homeworkscores,jdbcType=INTEGER}, #{attendancescores,jdbcType=INTEGER}, #{experimentalscores,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <delete id="deleteByID" parameterType="INTEGER">
+  	delete from scores
+  	where selectedcourseID = #{id, jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

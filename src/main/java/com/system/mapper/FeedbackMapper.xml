@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.FeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.system.po.Feedback" >
+  	<id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="studentID" property="studentid" jdbcType="INTEGER" />
+    <result column="courseID" property="courseid" jdbcType="INTEGER" />
+	<result column="teacherID" property="teacherid" jdbcType="INTEGER" />
+    <result column="feedbackText" property="feedbacktext" jdbcType="VARCHAR" />
+	<result column="processText" property="processtext" jdbcType="VARCHAR" />
+    <result column="feedbackDate" property="feedbackdate" jdbcType="DATE" />
+	<result column="feedbackTime" property="feedbacktime" jdbcType="TIME" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="courseName" property="coursename" jdbcType="VARCHAR" />
+    <result column="processed" property="processed" jdbcType="BIT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, studentID, courseID, teacherID, feedbackText, processText, feedbackDate, feedbackTime, studentName, courseName, processed
+  </sql>
+  
+  <select id="selectByID" resultMap="BaseResultMap" parameterType="INTEGER">
+  	select 
+  	<include refid="Base_Column_List" />
+    from feedback
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTeacherID" resultMap="BaseResultMap" parameterType="INTEGER">
+  	select 
+  	<include refid="Base_Column_List" />
+    from feedback
+    where teacherID = #{teacherid,jdbcType=INTEGER}
+  </select>
+  
+  <update id="update" parameterType="com.system.po.Feedback">
+    update feedback
+    set ID = #{id,jdbcType=INTEGER},
+      	studentID = #{studentid,jdbcType=INTEGER},
+      	courseID = #{courseid,jdbcType=INTEGER},
+		teacherID = #{teacherid,jdbcType=INTEGER},
+      	feedbackText = #{feedbacktext,jdbcType=VARCHAR},
+      	processText = #{processtext,jdbcType=VARCHAR},
+		feedbackDate = #{feedbackdate,jdbcType=DATE},
+      	feedbackTime = #{feedbacktime,jdbcType=TIME},
+      	studentName = #{studentname,jdbcType=VARCHAR},
+      	courseName = #{coursename,jdbcType=VARCHAR},
+      	processed = #{processed,jdbcType=BIT}
+	where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insert" parameterType="com.system.po.Feedback" >
+    insert into feedback (
+	<include refid="Base_Column_List" />
+    )
+    values (
+	#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{teacherid,jdbcType=INTEGER},#{feedbacktext,jdbcType=VARCHAR}, #{processtext,jdbcType=VARCHAR}, 
+	#{feedbackdate,jdbcType=DATE},#{feedbacktime,jdbcType=TIME}, #{studentname,jdbcType=VARCHAR}, 
+	#{coursename,jdbcType=VARCHAR},#{processed,jdbcType=BIT}
+    )
+  </insert>
+  
+  <delete id="deleteByID" parameterType="INTEGER">
+  	delete from feedback
+  	where ID = #{id, jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

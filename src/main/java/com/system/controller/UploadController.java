@@ -33,7 +33,7 @@ public class UploadController {
 	@Resource(name = "teacherServiceImpl")
     private TeacherService teacherService;
 	
- @RequestMapping(value = "/stuUpload", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/stuUpload", produces = "text/html;charset=UTF-8")
 	public String StuUpload(@RequestParam("file") MultipartFile file, HttpSession session) {
  
 		// 错误信息  （可以定义一个结果类用于保存信息-错误个数，正确个数，错误信息等）
@@ -101,7 +101,6 @@ public class UploadController {
 					if(!studentService.save(t))
 						errors.add("插入失败");
 						//获得插入时的路线id
-					
 				}
 				is.close();
 			}

@@ -21,17 +21,13 @@ public class Course {
 
     private Integer score;
     
-    private Integer regulargrade;
-    
     private Integer boardscores;
     
-    public Integer getRegulargrade() {
-        return regulargrade;
-    }
-
-    public void setRegulargrade(Integer regulargrade) {
-        this.regulargrade = regulargrade;
-    }
+    private Integer homeworkscores;
+    
+    private Integer attendancescores;
+    
+    private Integer experimentalscores;
     
     public Integer getBoardscores() {
         return boardscores;
@@ -39,6 +35,30 @@ public class Course {
 
     public void setBoardscores(Integer boardgcores) {
         this.boardscores = boardgcores;
+    }
+    
+    public Integer getHomeworkscores() {
+        return homeworkscores;
+    }
+
+    public void setHomeworkscores(Integer homeworkscores) {
+        this.homeworkscores = homeworkscores;
+    }
+    
+    public Integer getAttendancescores() {
+        return attendancescores;
+    }
+
+    public void setAttendancescores(Integer attendancescores) {
+        this.attendancescores = attendancescores;
+    }
+    
+    public Integer getExperimentalscores() {
+        return experimentalscores;
+    }
+
+    public void setExperimentalscores(Integer experimentalscores) {
+        this.experimentalscores = experimentalscores;
     }
 
     public Integer getCourseid() {

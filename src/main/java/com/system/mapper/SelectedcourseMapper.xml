@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.system.mapper.SelectedcourseMapper" >
   <resultMap id="BaseResultMap" type="com.system.po.Selectedcourse" >
+  	<id column="ID" property="id" jdbcType="INTEGER" />
     <result column="courseID" property="courseid" jdbcType="INTEGER" />
     <result column="studentID" property="studentid" jdbcType="INTEGER" />
     <result column="mark" property="mark" jdbcType="INTEGER" />
-    <result column="regularGrade" property="regulargrade" jdbcType="INTEGER" />
-    <result column="boardScores" property="boardscores" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where>
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    courseID, studentID, mark, boardScores, regularGrade
+    ID, courseID, studentID, mark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.SelectedcourseExample" >
     select
@@ -93,20 +92,26 @@
     delete from selectedcourse
     where studentID = #{studentid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByID" parameterType="java.lang.Integer" >
+    delete from selectedcourse
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByCourseID" parameterType="java.lang.Integer" >
     delete from selectedcourse
     where courseID = #{courseid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.system.po.Selectedcourse" >
-    insert into selectedcourse (courseID, studentID, mark, regulargrade, boardscores
+    insert into selectedcourse (ID, courseID, studentID, mark
       )
-    values (#{courseid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER},
-    		#{regulargrade,jdbcType=INTEGER}, #{boardscores,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.system.po.Selectedcourse" >
     insert into selectedcourse
     <trim prefix="(" suffix=")" suffixOverrides="," >
+       <if test="id != null" >
+        ID,
+      </if>
       <if test="courseid != null" >
         courseID,
       </if>
@@ -114,16 +119,13 @@
         studentID,
       </if>
       <if test="mark != null" >
-        mark,
-      </if>
-      <if test="regulargrade != null" >
-        regularGrade,
-      </if>
-      <if test="boardscores != null" >
-        boardScores,
+        mark
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+    <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="courseid != null" >
         #{courseid,jdbcType=INTEGER},
       </if>
@@ -131,13 +133,7 @@
         #{studentid,jdbcType=INTEGER},
       </if>
       <if test="mark != null" >
-        #{mark,jdbcType=INTEGER},
-      </if>
-      <if test="regulargrade != null" >
-        #{regulargrade,jdbcType=INTEGER},
-      </if>
-      <if test="boardscores != null" >
-        #{boardscores,jdbcType=INTEGER},
+        #{mark,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
@@ -147,9 +143,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="java.util.Map" >
     update selectedcourse
     <set >
+    	<if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.courseid != null" >
         courseID = #{record.courseid,jdbcType=INTEGER},
       </if>
@@ -157,26 +156,29 @@
         studentID = #{record.studentid,jdbcType=INTEGER},
       </if>
       <if test="record.mark != null" >
-        mark = #{record.mark,jdbcType=INTEGER},
-      </if>
-      <if test="record.regulargrade != null" >
-        regularGrade = #{record.regulargrade,jdbcType=INTEGER},
-      </if>
-      <if test="record.boardscores != null" >
-        boardScores = #{record.boardscores,jdbcType=INTEGER},
+        mark = #{record.mark,jdbcType=INTEGER}
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample">
     update selectedcourse
-    set courseID = #{record.courseid,jdbcType=INTEGER},
-      studentID = #{record.studentid,jdbcType=INTEGER},
-      mark = #{record.mark,jdbcType=INTEGER},
-      regularGrade = #{record.regulargrade,jdbcType=INTEGER},
-      boardScores = #{record.boardscores,jdbcType=INTEGER}
+    <set >
+    <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null" >
+        courseID = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        studentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=INTEGER}
+      </if>
+    </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
