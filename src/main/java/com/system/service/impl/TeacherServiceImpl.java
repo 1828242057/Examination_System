@@ -131,6 +131,8 @@ public class TeacherServiceImpl implements TeacherService {
             for (Teacher t: list) {
                 TeacherCustom teacherCustom = new TeacherCustom();
                 BeanUtils.copyProperties(t, teacherCustom);
+                College college=collegeMapper.selectByPrimaryKey(teacherCustom.getCollegeid());
+                teacherCustom.setcollegeName(college.getCollegename());
                 teacherCustomsList.add(teacherCustom);
             }
         }

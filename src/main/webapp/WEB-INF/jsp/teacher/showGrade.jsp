@@ -37,8 +37,7 @@
 									</button>
 									<ul class="dropdown-menu">
 										<li><a href="${pageContext.request.contextPath}/teacher/scoresUpload?courseid=${courseid}">导入</a></li>
-										<!-- 导出还未实现，待补充！ -->
-										<li><a href="">导出</a></li>
+										<li><a href="${pageContext.request.contextPath}/exportCourseGrade?courseid=${courseid}">导出</a></li>
 									</ul>
 							</div>
 						

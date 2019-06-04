@@ -84,6 +84,27 @@ public class StudentServiceImpl implements StudentService {
 
         return studentCustom;
     }
+    
+    public List<StudentCustom> findAll() throws Exception{
+    	List<Student> list = studentMapper.selectAll();
+    	List<StudentCustom> studentCustomList = null;
+    	
+    	if (list != null) {
+            studentCustomList = new ArrayList<StudentCustom>();
+            for (Student s : list) {
+                StudentCustom studentCustom = new StudentCustom();
+                //类拷贝
+                BeanUtils.copyProperties(s, studentCustom);
+                //获取课程名
+                College college = collegeMapper.selectByPrimaryKey(s.getCollegeid());
+                studentCustom.setcollegeName(college.getCollegename());
+
+                studentCustomList.add(studentCustom);
+            }
+        }
+
+        return studentCustomList;
+    }
 
     //模糊查询
     public List<StudentCustom> findByName(String name) throws Exception {

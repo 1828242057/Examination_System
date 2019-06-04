@@ -70,6 +70,9 @@
   <sql id="Base_Column_List" >
     userID, userName, sex, birthYear, grade, collegeID
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from student
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.StudentExample" >
     select
     <if test="distinct" >

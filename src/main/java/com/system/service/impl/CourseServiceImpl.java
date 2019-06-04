@@ -106,6 +106,28 @@ public class CourseServiceImpl implements CourseService {
 
         return courseCustomList;
     }
+    
+  //查询所有课程
+    public List<CourseCustom> findAll() throws Exception{
+    	List<Course> list = courseMapper.selectAll();
+        List<CourseCustom> courseCustomList = null;
+
+        if (list.size() > 0) {
+            courseCustomList = new ArrayList<CourseCustom>();
+            for (Course c : list) {
+                CourseCustom courseCustom = new CourseCustom();
+                //类拷贝
+                BeanUtils.copyProperties(courseCustom, c);
+                //获取课程名
+                College college = collegeMapper.selectByPrimaryKey(c.getCollegeid());
+                courseCustom.setcollegeName(college.getCollegename());
+
+                courseCustomList.add(courseCustom);
+            }
+        }
+
+        return courseCustomList;
+    }
 
     public List<CourseCustom> findByTeacherID(Integer id) throws Exception {
         CourseExample courseExample = new CourseExample();

@@ -29,6 +29,8 @@ public interface StudentService {
 
     //根据名字模糊查询
     List<StudentCustom> findByName(String name) throws Exception;
+    
+    List<StudentCustom> findAll() throws Exception;
 
     // 一对多查询，查询该学生的选课信息
     StudentCustom findStudentAndSelectCourseListByName(String name) throws Exception;

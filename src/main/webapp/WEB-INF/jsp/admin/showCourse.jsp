@@ -41,7 +41,7 @@
 								</div>
 							</form>
 							<div class="btn-group">
-									<button class="btn btn-default" style="margin-top: 20px">导入课程信息</button>
+									<button class="btn btn-default" style="margin-top: 20px">导入</button>
 									<button data-toggle="dropdown" class="btn dropdown-toggle" style="margin-top: 20px">
 										<span class="caret" ></span>
 									</button>
@@ -50,6 +50,8 @@
 										<li><a href="${pageContext.request.contextPath}/admin/courseUpload">文件导入</a></li>
 									</ul>
 							</div>
+							<button class="btn btn-default" style="margin-top:20px;margin-right:20px;float:right"
+							onClick="location.href='${pageContext.request.contextPath}/exportCourse'">导出</button>
 						</div>
 					</div>
 					<table class="table table-bordered">

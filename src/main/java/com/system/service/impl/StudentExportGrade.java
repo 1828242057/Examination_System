@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.system.po.ExcelBean;
@@ -32,6 +31,10 @@ public class StudentExportGrade implements ExcelInfo{   //学生导出课程信�
 	@Resource(name = "scoresServiceImpl")
     private ScoresService scoresService;
 	
+	@Override
+	public XSSFWorkbook exportExcelInfoWithId(Integer id) throws Exception{
+		return null;
+	}
 	
 	@Override
 	public XSSFWorkbook exportExcelInfo() throws Exception{

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2019-05-26 23:27:05
+Date: 2019-06-04 22:45:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,7 +56,7 @@ CREATE TABLE `course` (
   KEY `teacherID` (`teacherID`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`),
   CONSTRAINT `course_ibfk_2` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
@@ -88,9 +88,9 @@ CREATE TABLE `feedback` (
   KEY `feedback_fk_1` (`studentID`),
   KEY `feedback_fk_2` (`courseID`),
   KEY `feedback_fk_3` (`teacherID`),
-  CONSTRAINT `feedback_fk_3` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`),
   CONSTRAINT `feedback_fk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`userID`),
-  CONSTRAINT `feedback_fk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`)
+  CONSTRAINT `feedback_fk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
+  CONSTRAINT `feedback_fk_3` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -137,9 +137,9 @@ CREATE TABLE `scores` (
 -- ----------------------------
 -- Records of scores
 -- ----------------------------
-INSERT INTO `scores` VALUES ('52', '0', '0', '0', '0');
+INSERT INTO `scores` VALUES ('52', '60', '0', '0', '0');
 INSERT INTO `scores` VALUES ('56', '70', '10', '10', '10');
-INSERT INTO `scores` VALUES ('57', '0', '0', '0', '0');
+INSERT INTO `scores` VALUES ('57', '59', '0', '0', '0');
 INSERT INTO `scores` VALUES ('58', null, null, null, null);
 INSERT INTO `scores` VALUES ('60', '70', '10', '10', '10');
 INSERT INTO `scores` VALUES ('61', null, null, null, null);
@@ -164,9 +164,9 @@ CREATE TABLE `selectedcourse` (
 -- ----------------------------
 -- Records of selectedcourse
 -- ----------------------------
-INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '0');
+INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '60');
 INSERT INTO `selectedcourse` VALUES ('56', '1', '10001', '100');
-INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', '0');
+INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', '59');
 INSERT INTO `selectedcourse` VALUES ('58', '3', '10000', null);
 INSERT INTO `selectedcourse` VALUES ('60', '2', '10001', '100');
 INSERT INTO `selectedcourse` VALUES ('61', '3', '10001', null);
@@ -186,7 +186,7 @@ CREATE TABLE `student` (
   PRIMARY KEY (`userID`),
   KEY `collegeID` (`collegeID`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2216002 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10005 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
@@ -213,7 +213,7 @@ CREATE TABLE `teacher` (
   PRIMARY KEY (`userID`),
   KEY `collegeID` (`collegeID`),
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher

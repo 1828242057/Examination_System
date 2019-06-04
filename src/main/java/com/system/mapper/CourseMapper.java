@@ -20,6 +20,8 @@ public interface CourseMapper {
     List<Course> selectByExample(CourseExample example);
 
     Course selectByPrimaryKey(Integer courseid);
+    
+    List<Course> selectAll();
 
     int updateByExampleSelective(@Param("record") Course record, @Param("example") CourseExample example);
 
