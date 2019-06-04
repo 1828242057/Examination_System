@@ -71,7 +71,7 @@
 	<%@include file="Footer.jsp"%>
 </body>
 <script>
-    $("#nav li:nth-child(2)").addClass("active")
+    $("#nav li:nth-child(3)").addClass("active")
     function check() {
         if(reset.oldPassword.value==""||reset.oldPassword.value==null)
         {alert("请输入旧账户密码");return false;}

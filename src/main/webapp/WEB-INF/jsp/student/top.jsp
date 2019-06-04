@@ -17,7 +17,7 @@
 						src="${pageContext.request.contextPath}/images/logo.png">
 					</a>
 				</div>
-				<div class="navbar-brand" style="margin-left:35%">
+				<div class="navbar-brand" style="float:right">
 					<span class="glyphicon glyphicon-user"><shiro:principal /></span>
 					<span> <script type="text/javascript">
                      		var date = new Date();

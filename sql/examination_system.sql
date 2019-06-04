@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2019-05-23 18:07:30
+Date: 2019-05-26 23:27:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ INSERT INTO `college` VALUES ('3', '财经系');
 -- ----------------------------
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
-  `courseID` int(11) NOT NULL,
+  `courseID` int(11) NOT NULL AUTO_INCREMENT,
   `courseName` varchar(200) NOT NULL COMMENT '课程名称',
   `teacherID` int(11) NOT NULL,
   `courseTime` varchar(200) DEFAULT NULL COMMENT '开课时间',
@@ -56,7 +56,7 @@ CREATE TABLE `course` (
   KEY `teacherID` (`teacherID`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`),
   CONSTRAINT `course_ibfk_2` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
@@ -65,6 +65,8 @@ INSERT INTO `course` VALUES ('1', 'C语言程序设计', '1000', '周一', '西�
 INSERT INTO `course` VALUES ('2', 'Java程序设计', '1000', '周三', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10');
 INSERT INTO `course` VALUES ('3', 'C++程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10');
 INSERT INTO `course` VALUES ('4', 'C#程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10');
+INSERT INTO `course` VALUES ('5', '哲学', '1002', '周一', '西一 203', '8', '必修课', '1', '2', '老孙', '60', '20', '10', '10');
+INSERT INTO `course` VALUES ('6', '嵌入式系统', '1000', '周五', '西一204', '12', '必修课', '1', '4', '赵老', '70', '0', '10', '20');
 
 -- ----------------------------
 -- Table structure for `feedback`
@@ -89,12 +91,15 @@ CREATE TABLE `feedback` (
   CONSTRAINT `feedback_fk_3` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`),
   CONSTRAINT `feedback_fk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`userID`),
   CONSTRAINT `feedback_fk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
 INSERT INTO `feedback` VALUES ('1', '10000', '1', '1000', '老师您好！我认为我的成绩应该是101分，请您重新为我计分！', '你怕不是傻子？', '老一', 'C语言程序设计', '', '2019-05-23', '14:54:40');
+INSERT INTO `feedback` VALUES ('2', '10000', '2', '1000', '老师您好！我的成绩为何还未录入？', '已补录！', '老一', 'Java程序设计', '', '2019-05-23', '18:36:57');
+INSERT INTO `feedback` VALUES ('3', '10001', '1', '1000', '老师下周的C语言课我想请假！', '不行！', '老二', 'C语言程序设计', '', '2019-05-23', '18:53:03');
+INSERT INTO `feedback` VALUES ('4', '10000', '3', '1001', '你好！老师！', null, '老一', 'C++程序设计', '', '2019-05-25', '17:23:16');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -132,12 +137,11 @@ CREATE TABLE `scores` (
 -- ----------------------------
 -- Records of scores
 -- ----------------------------
-INSERT INTO `scores` VALUES ('52', '70', '10', '10', '10');
-INSERT INTO `scores` VALUES ('56', '29', '10', '10', '10');
-INSERT INTO `scores` VALUES ('57', null, null, null, null);
+INSERT INTO `scores` VALUES ('52', '0', '0', '0', '0');
+INSERT INTO `scores` VALUES ('56', '70', '10', '10', '10');
+INSERT INTO `scores` VALUES ('57', '0', '0', '0', '0');
 INSERT INTO `scores` VALUES ('58', null, null, null, null);
-INSERT INTO `scores` VALUES ('59', null, null, null, null);
-INSERT INTO `scores` VALUES ('60', null, null, null, null);
+INSERT INTO `scores` VALUES ('60', '70', '10', '10', '10');
 INSERT INTO `scores` VALUES ('61', null, null, null, null);
 INSERT INTO `scores` VALUES ('62', null, null, null, null);
 
@@ -160,12 +164,11 @@ CREATE TABLE `selectedcourse` (
 -- ----------------------------
 -- Records of selectedcourse
 -- ----------------------------
-INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '100');
-INSERT INTO `selectedcourse` VALUES ('56', '1', '10001', '59');
-INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', null);
+INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '0');
+INSERT INTO `selectedcourse` VALUES ('56', '1', '10001', '100');
+INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', '0');
 INSERT INTO `selectedcourse` VALUES ('58', '3', '10000', null);
-INSERT INTO `selectedcourse` VALUES ('59', '4', '10000', null);
-INSERT INTO `selectedcourse` VALUES ('60', '2', '10001', null);
+INSERT INTO `selectedcourse` VALUES ('60', '2', '10001', '100');
 INSERT INTO `selectedcourse` VALUES ('61', '3', '10001', null);
 INSERT INTO `selectedcourse` VALUES ('62', '4', '10001', null);
 
@@ -183,13 +186,16 @@ CREATE TABLE `student` (
   PRIMARY KEY (`userID`),
   KEY `collegeID` (`collegeID`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10003 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2216002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
 INSERT INTO `student` VALUES ('10000', '老一', '男', '1996-09-02', '2015-09-02', '1');
 INSERT INTO `student` VALUES ('10001', '老二', '男', '1996-09-02', '2015-09-02', '1');
+INSERT INTO `student` VALUES ('10002', '老三', '男', '1998-05-08', '2016-02-09', '1');
+INSERT INTO `student` VALUES ('10003', '老四', '男', '1998-04-08', '2016-02-09', '1');
+INSERT INTO `student` VALUES ('10004', '老五', '男', '1998-03-08', '2016-02-09', '1');
 
 -- ----------------------------
 -- Table structure for `teacher`
@@ -214,6 +220,7 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('1000', '赵老', '男', '1980-09-02', '硕士', '普通教师', '2015-09-02', '1');
 INSERT INTO `teacher` VALUES ('1001', '钱老', '男', '1980-01-01', '硕士', '普通教师', '2015-09-02', '1');
+INSERT INTO `teacher` VALUES ('1002', '老孙', '男', '1970-05-08', '硕士', '普通教师', '2016-02-09', '1');
 
 -- ----------------------------
 -- Table structure for `userlogin`
@@ -227,7 +234,7 @@ CREATE TABLE `userlogin` (
   PRIMARY KEY (`userID`),
   KEY `role` (`role`),
   CONSTRAINT `userlogin_ibfk_1` FOREIGN KEY (`role`) REFERENCES `role` (`roleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of userlogin
@@ -237,3 +244,7 @@ INSERT INTO `userlogin` VALUES ('18', '1000', '123', '1');
 INSERT INTO `userlogin` VALUES ('19', '1001', '123', '1');
 INSERT INTO `userlogin` VALUES ('20', '10001', '123', '2');
 INSERT INTO `userlogin` VALUES ('21', '10000', '123', '2');
+INSERT INTO `userlogin` VALUES ('30', '10002', '123', '2');
+INSERT INTO `userlogin` VALUES ('31', '10003', '123', '2');
+INSERT INTO `userlogin` VALUES ('32', '10004', '123', '2');
+INSERT INTO `userlogin` VALUES ('33', '1002', '123', '1');

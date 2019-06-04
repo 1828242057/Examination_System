@@ -71,6 +71,7 @@ public class TeacherController {
         	scc.setExperimentalscores(scores.getExperimentalscores());
         }
         model.addAttribute("selectedCourseList", list);
+        model.addAttribute("courseid", id);
         return "teacher/showGrade";
     }
 
@@ -143,5 +144,14 @@ public class TeacherController {
 		fb.setProcesstext(feedback.getProcesstext());
 		feedbackService.update(fb);
         return "redirect:showResponsive";
+    }
+    
+    @RequestMapping(value = "/scoresUpload", method = {RequestMethod.GET})
+    private String scoresUpload(Integer courseid, String failMessage, String successMessage, String fileName, Model model) throws Exception {
+    	model.addAttribute("courseid", courseid);
+    	model.addAttribute("failMessage", failMessage);
+		model.addAttribute("successMessage", successMessage);
+		model.addAttribute("fileName",fileName);
+        return "teacher/scoresUpload";
     }
 }

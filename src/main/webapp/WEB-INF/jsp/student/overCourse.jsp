@@ -42,7 +42,7 @@
 									</button>
 									<ul class="dropdown-menu">
 										<li><a href="#">本学期</a></li>
-										<li><a href="#">所有</a></li>
+										<li><a href="${pageContext.request.contextPath}/exportStudentGrade">所有</a></li>
 									</ul>
 								</div>
 							</div>
@@ -73,11 +73,22 @@
 										<td>${item.couseCustom.teachername}</td>
 										<td>${item.couseCustom.coursetype}</td>
 										<td>${item.couseCustom.score}</td>
-										<td style="color: red">${item.boardscores}</td>
-										<td style="color: red">${item.homeworkscores}</td>
-										<td style="color: red">${item.attendancescores}</td>
-										<td style="color: red">${item.experimentalscores}</td>
-										<td style="color: red">${item.mark}</td>
+										<c:choose>
+											<c:when test="${item.mark < (item.couseCustom.boardscores + item.couseCustom.homeworkscores +item.couseCustom.attendancescores +item.couseCustom.experimentalscores)*0.6}">
+												<td style="color: red">${item.boardscores}</td>
+												<td style="color: red">${item.homeworkscores}</td>
+												<td style="color: red">${item.attendancescores}</td>
+												<td style="color: red">${item.experimentalscores}</td>
+												<td style="color: red">${item.mark}</td>
+											</c:when>
+											<c:otherwise>
+												<td>${item.boardscores}</td>
+												<td>${item.homeworkscores}</td>
+												<td>${item.attendancescores}</td>
+												<td>${item.experimentalscores}</td>
+												<td>${item.mark}</td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -113,8 +124,6 @@
 						</c:if>
 					</div>
 				</div>
-
-			</div>
 		</div>
 	</div>
 	<%@include file="Footer.jsp"%>

@@ -7,9 +7,6 @@ import com.system.service.FeedbackService;
 import com.system.service.ScoresService;
 import com.system.service.SelectedCourseService;
 import com.system.service.StudentService;
-import com.system.service.impl.stuExportCourseInfo;
-
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -17,16 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Date;
 import java.sql.Time;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import java.util.List;
 /**
  * Created by Jacey on 2017/7/5.
@@ -37,10 +28,6 @@ public class StudentController {
 	
 	@Resource(name = "feedbackServiceImpl")
     private FeedbackService feedbackService;
-	
-	@Resource(name = "stuExportCourseInfo")
-    private stuExportCourseInfo stuExportCourse;
-
 
 	@Resource(name = "scoresServiceImpl")
     private ScoresService scoresService;
@@ -113,7 +100,7 @@ public class StudentController {
 
     // 已选课程
     @RequestMapping(value = "/selectedCourse")
-    public String selectedCourse(Model model) throws Exception {
+    public String selectedCourse(Model model) throws Exception {	
         //获取当前用户名
         Subject subject = SecurityUtils.getSubject();
         StudentCustom studentCustom = studentService.findStudentAndSelectCourseListByName((String) subject.getPrincipal());
@@ -168,7 +155,6 @@ public class StudentController {
        return "student/Responsive";
     }
     
-    
     //反馈提交控制器
     @RequestMapping(value = "/Responsive" ,method = {RequestMethod.POST})
     public String Responsive(Feedback feedback) throws Exception {
@@ -197,31 +183,6 @@ public class StudentController {
 			feedbackService.save(feedback);
 		}
 		
-		return "student/Responsive";
-    }
-    
-  //课程导出控制器  未实现
-    @RequestMapping(value = "/exportCourse", method = {RequestMethod.GET})
-    public void export(HttpServletRequest request,HttpServletResponse response) throws Exception{
-        response.reset(); //清除buffer缓存  
-        //Map<String,Object> map=new HashMap<String,Object>();  
-        // 指定下载的文件名  
-        response.setContentType("application/vnd.ms-excel;charset=UTF-8");  
-        response.setHeader("Content-Disposition","attachment;filename="+new String("用户表.xlsx".getBytes(),"iso-8859-1"));
-        //导出Excel对象  
-        XSSFWorkbook workbook = stuExportCourse.exportExcelInfo();
-        OutputStream output;  
-        try {  
-            output = response.getOutputStream();  
-            BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);  
-            bufferedOutput.flush();  
-            workbook.write(bufferedOutput);  
-            bufferedOutput.close();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }
-
-
-    
+		return "redirect:Responsive";
     }
 }
