@@ -4,7 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
+<title>课程统计</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->
@@ -25,10 +28,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
-							<h1 style="text-align: center;">单科成绩分析</h1>
+							<h1 class="col-md-5">成绩统计</h1>
+							<button class="btn btn-default" style="margin-top:25px;margin-right:20px;float:right"
+							onClick="location.href='${pageContext.request.contextPath}/exportCourseStatistics?teacherid=${teacherId}'">导出所有课程分析</button>
 						</div>
 					</div>
-					<div class="panel-body">
 						<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -69,7 +73,6 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					</div>
 
 				</div>
 

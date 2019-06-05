@@ -156,6 +156,7 @@ public class TeacherController {
         //这里暂时先用所有的科目
         List<CourseCustom> list = courseService.findByTeacherID(Integer.parseInt(username));
         model.addAttribute("courseList", list);
+        model.addAttribute("teacherId", Integer.parseInt(username));
         return "teacher/courseStatistics";
     }
     
@@ -167,7 +168,9 @@ public class TeacherController {
             return "";
         }
         List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+        CourseCustom courseCustom=courseService.findById(id);
         model.addAttribute("selectedCourseList", new Gson().toJson(list));
+        model.addAttribute("coursename", courseCustom.getCoursename());
         return "teacher/doStatistics";
     }
     

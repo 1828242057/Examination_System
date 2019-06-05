@@ -36,7 +36,7 @@
 							<h1 class="col-md-5">反馈信息</h1>
 						</div>
 					</div>
-					<table data-toggle="table">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th data-align="center">学生</th>

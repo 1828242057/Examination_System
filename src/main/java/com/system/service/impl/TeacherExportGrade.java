@@ -7,15 +7,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
 import com.system.po.CourseCustom;
 import com.system.po.ExcelBean;
 import com.system.po.Scores;
 import com.system.po.SelectedCourseCustom;
-import com.system.po.StudentCustom;
 import com.system.service.CourseService;
 import com.system.service.ExcelInfo;
 import com.system.service.ScoresService;
