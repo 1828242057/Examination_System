@@ -7,7 +7,7 @@
 		<div class="row-fluid">
 			<div class="span2"></div>
 			<div class="span8">
-				<p class="text-center lead text-info"><font size="3">版权所有©2019-2020 你说什么都队
+				<p class="text-center lead text-info"><font size="3" color="black">版权所有©2019-2020 你说什么都队
 					并保留所有权利。</font></p>
 			</div>
 			<div class="span2"></div>

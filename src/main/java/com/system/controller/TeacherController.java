@@ -1,5 +1,6 @@
 package com.system.controller;
 
+import com.google.gson.Gson;
 import com.system.exception.CustomException;
 import com.system.po.*;
 import com.system.service.CourseService;
@@ -144,6 +145,30 @@ public class TeacherController {
 		fb.setProcesstext(feedback.getProcesstext());
 		feedbackService.update(fb);
         return "redirect:showResponsive";
+    }
+    
+    //统计分析（最低要求单科分值分段统计）  待修改  --廖永杰
+    @RequestMapping(value = "/courseStatistics")
+    public String courseStatistics(Model model) throws Exception {
+		//显示已经打分完成的科目 然后点击分析按钮弹出统计图窗口
+    	Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        //这里暂时先用所有的科目
+        List<CourseCustom> list = courseService.findByTeacherID(Integer.parseInt(username));
+        model.addAttribute("courseList", list);
+        return "teacher/courseStatistics";
+    }
+    
+    //产生单科分值分段统计图  待修改  --廖永杰
+    @RequestMapping(value = "/doStatistics")
+    public String doStatistics(Integer id,Model model) throws Exception {
+		//统计图
+    	if (id == null) {
+            return "";
+        }
+        List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+        model.addAttribute("selectedCourseList", new Gson().toJson(list));
+        return "teacher/doStatistics";
     }
     
     @RequestMapping(value = "/scoresUpload", method = {RequestMethod.GET})

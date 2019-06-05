@@ -9,6 +9,9 @@
 <html>
 <head>
 <title>成功页面</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 </head>
 <body>
 	<h1>操作成功</h1>

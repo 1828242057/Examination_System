@@ -2,7 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
+<title>修改个人密码</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->
@@ -71,7 +74,7 @@
 	<%@include file="Footer.jsp"%>
 </body>
 <script>
-    $("#nav li:nth-child(3)").addClass("active")
+    $("#nav li:nth-child(4)").addClass("active")
     function check() {
         if(reset.oldPassword.value==""||reset.oldPassword.value==null)
         {alert("请输入旧账户密码");return false;}

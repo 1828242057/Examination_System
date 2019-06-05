@@ -8,6 +8,9 @@
 			href="${pageContext.request.contextPath}/teacher/showResponsive">反馈信息<span
 					class="glyphicon glyphicon-comment pull-right"></span></a></li>
 		<li><a
+			href="${pageContext.request.contextPath}/teacher/courseStatistics">统计分析<span
+					class="glyphicon glyphicon-stats pull-right"></span></a></li>
+		<li><a
 			href="${pageContext.request.contextPath}/teacher/passwordRest">修改密码<span
 					class="glyphicon glyphicon-pencil pull-right"></span></a></li>
 		<li><a 
