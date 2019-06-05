@@ -6,6 +6,9 @@
 <html>
 <head>
 <title>教师信息显示</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->

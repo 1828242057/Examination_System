@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>课程信息显示</title>
+<title>查看成绩</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->

@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="bookmark" type="image/x-icon" href="images/favicon.ico"/>
+<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="icon" href="images/favicon.ico">
 <title>登录</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->

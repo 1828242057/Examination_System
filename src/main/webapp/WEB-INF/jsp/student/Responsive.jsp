@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>课程信息显示</title>
+<title>反馈</title>
+<link rel="bookmark" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 引入bootstrap -->
@@ -64,6 +67,6 @@
 	<%@include file="Footer.jsp"%>
 </body>
 <script type="text/javascript">
-		
-	</script>
+	$("#nav li:nth-child(5)").addClass("active")
+</script>
 </html>
