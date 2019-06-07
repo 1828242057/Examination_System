@@ -49,14 +49,16 @@ public class TeacherExportCourseStatistics implements ExcelInfo{
         	range1=range2=range3=range4=range5=range6=range7=good=excellent=total=0;
         	selectedCourselist = selectedCourseService.findByCourseID(cc.getCourseid());
         	for(SelectedCourseCustom scc:selectedCourselist) {
-        		total++;
-        		if(scc.getMark()<20)range1++;
-        		else if(scc.getMark()<40)range2++;
-        		else if(scc.getMark()<60)range3++;
-        		else if(scc.getMark()<70)range4++;
-        		else if(scc.getMark()<80){range5++;good++;}
-        		else if(scc.getMark()<90){range6++;if(scc.getMark()<85)good++;else excellent++;}
-        		else {range7++;excellent++;}
+        		if(scc.getMark()!=null) {
+        			total++;
+        			if(scc.getMark()<20)range1++;
+        			else if(scc.getMark()<40)range2++;
+        			else if(scc.getMark()<60)range3++;
+        			else if(scc.getMark()<70)range4++;
+        			else if(scc.getMark()<80){range5++;good++;}
+        			else if(scc.getMark()<90){range6++;if(scc.getMark()<85)good++;else excellent++;}
+        			else {range7++;excellent++;}
+        		}
         	}
         	courseStatisticsMap = new LinkedHashMap<>();
         	courseStatisticsMap.put("courseName", cc.getCoursename());
