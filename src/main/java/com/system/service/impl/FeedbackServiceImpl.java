@@ -34,4 +34,8 @@ public class FeedbackServiceImpl implements FeedbackService{
 	public void remove(Integer id) throws Exception{
 		feedbackMapper.deleteByID(id);
 	}
+	
+	public List<Feedback> findByStudentID(Integer studentid) throws Exception{
+		return feedbackMapper.selectByStudentID(studentid);
+	}
 }

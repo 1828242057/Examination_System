@@ -80,6 +80,8 @@
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
 											onClick="location.href='${pageContext.request.contextPath}/teacher/gradeCourse?id=${item.courseid}'">成绩</button>
+										<button class="btn btn-default btn-xs btn-info"
+											onClick="location.href='${pageContext.request.contextPath}/teacher/passedJoin?courseid=${item.courseid}'">审核</button>
 										<!--弹出框-->
 									</td>
 								</tr>

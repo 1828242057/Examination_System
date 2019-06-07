@@ -43,7 +43,6 @@ public class ExportExcelController {
 	        //Map<String,Object> map=new HashMap<String,Object>();  
 	        // 指定下载的文件名  
 	        response.setContentType("application/vnd.ms-excel;charset=UTF-8");  
-	        Subject subject = SecurityUtils.getSubject();
 	        response.setHeader("Content-Disposition","attachment;filename="+new String("学生成绩表.xls".getBytes(),"iso-8859-1"));
 	        //导出Excel对象  
 	        XSSFWorkbook workbook = studentExportGrade.exportExcelInfo();

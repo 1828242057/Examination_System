@@ -52,9 +52,22 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${selectedCourseList}" var="item">
+							<c:forEach items="${passedList}" var="item">
+								<%--输出待审核退选的课程--%>
+									<tr>
+										<td>${item.couseCustom.courseid}</td>
+										<td>${item.couseCustom.coursename}</td>
+										<td>${item.couseCustom.teachername}</td>
+										<td>${item.couseCustom.coursetime}</td>
+										<td>${item.couseCustom.classroom}</td>
+										<td>${item.couseCustom.courseweek}</td>
+										<td>${item.couseCustom.coursetype}</td>
+										<td>${item.couseCustom.score}</td>
+										<td><font color="orange" size="2">退选审核中</font></td>
+									</tr>
+							</c:forEach>
+							<c:forEach items="${beingList}" var="item">
 								<%--输出还没修完的课程--%>
-								<c:if test="${!item.over}">
 									<tr>
 										<td>${item.couseCustom.courseid}</td>
 										<td>${item.couseCustom.coursename}</td>
@@ -70,7 +83,6 @@
 											<!--弹出框-->
 										</td>
 									</tr>
-								</c:if>
 							</c:forEach>
 						</tbody>
 					</table>

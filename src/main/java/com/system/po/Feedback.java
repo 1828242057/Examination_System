@@ -14,6 +14,7 @@ public class Feedback {
 	private Boolean processed;
 	private Date feedbackdate;
 	private Time feedbacktime;
+	private String teachername;
 	
 	public Integer getId() {
         return id;
@@ -101,5 +102,13 @@ public class Feedback {
 
     public void setProcessed(Boolean processed) {
         this.processed = processed;
+    }
+    
+    public void setTeachername(String teachername) {
+        this.teachername = teachername;
+    }
+    
+    public String getTeachername() {
+        return teachername;
     }
 }

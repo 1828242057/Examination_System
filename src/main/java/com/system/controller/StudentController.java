@@ -18,6 +18,8 @@ import java.sql.Date;
 import java.sql.Time;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Jacey on 2017/7/5.
@@ -43,7 +45,16 @@ public class StudentController {
 
     @RequestMapping(value = "/showCourse")
     public String stuCourseShow(Model model, Integer page) throws Exception {
+        List<CourseCustom> notList = new ArrayList<CourseCustom>();
+        List<CourseCustom> beingList = new ArrayList<CourseCustom>();
+        List<CourseCustom> alreadyList = new ArrayList<CourseCustom>();
+        List<CourseCustom> passedList = new ArrayList<CourseCustom>();
         List<CourseCustom> list = null;
+        Subject subject = SecurityUtils.getSubject();
+        StudentCustom studentCustom = studentService.findStudentAndSelectCourseListByName((String) subject.getPrincipal());
+        List<SelectedCourseCustom> selectedCourseList=studentCustom.getSelectedCourseList();
+        int i;
+        
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
@@ -55,8 +66,25 @@ public class StudentController {
             pagingVO.setToPageNo(page);
             list = courseService.findByPaging(page);
         }
+        
+        for(CourseCustom cc:list) {
+        	for(i=0;i<selectedCourseList.size();i++) {
+        		if(cc.getCourseid().equals(selectedCourseList.get(i).getCourseid())) {
+        			if(selectedCourseList.get(i).getPassed()==0) {
+        				passedList.add(cc);
+        			}
+        			else if(selectedCourseList.get(i).getOver()==true) alreadyList.add(cc);
+        			else beingList.add(cc);
+        			break;
+        		}
+        	}
+        	if(i==selectedCourseList.size()) notList.add(cc);
+        }
 
-        model.addAttribute("courseList", list);
+        model.addAttribute("notList", notList);
+        model.addAttribute("beingList", beingList);
+        model.addAttribute("alreadyList", alreadyList);
+        model.addAttribute("passedList", passedList);
         model.addAttribute("pagingVO", pagingVO);
 
         return "student/showCourse";
@@ -66,7 +94,7 @@ public class StudentController {
 
     // 选课操作
     @RequestMapping(value = "/stuSelectedCourse")
-    public String stuSelectedCourse(int id) throws Exception {
+    public String stuSelectedCourse(int id,int page) throws Exception {
         //获取当前用户名
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
@@ -78,6 +106,7 @@ public class StudentController {
         SelectedCourseCustom s = selectedCourseService.findOne(selectedCourseCustom);
 
         if (s == null) {
+        	selectedCourseCustom.setPassed(0);
             selectedCourseService.save(selectedCourseCustom);
             s=selectedCourseService.findOne(selectedCourseCustom);
             Scores scores = new Scores();
@@ -86,14 +115,15 @@ public class StudentController {
         } else {
             throw new CustomException("该门课程你已经选了，不能再选");
         }
-        return "redirect:/student/selectedCourse";
+        return "redirect:/student/showCourse?page="+page;
     }
 
     // 退课操作
     @RequestMapping(value = "/outCourse")
     public String outCourse(int id) throws Exception {
-        scoresService.remove(id);
-        selectedCourseService.remove(id);
+    	SelectedCourseCustom sc=selectedCourseService.findById(id);
+    	sc.setPassed(2);
+    	selectedCourseService.updataOne(sc);
 
         return "redirect:/student/selectedCourse";
     }
@@ -105,10 +135,18 @@ public class StudentController {
         Subject subject = SecurityUtils.getSubject();
         StudentCustom studentCustom = studentService.findStudentAndSelectCourseListByName((String) subject.getPrincipal());
         
-        List<SelectedCourseCustom> list;
-        if(studentCustom==null) list=null;
-        else list = studentCustom.getSelectedCourseList();
-        model.addAttribute("selectedCourseList", list);
+        List<SelectedCourseCustom> beingList=new ArrayList<SelectedCourseCustom>();
+        List<SelectedCourseCustom> passedList=new ArrayList<SelectedCourseCustom>();
+       
+        if(studentCustom!=null) {
+        	List<SelectedCourseCustom> list = studentCustom.getSelectedCourseList();
+        	for(SelectedCourseCustom scc:list) {
+        		if(scc.getPassed()==1 && scc.getOver()==false) beingList.add(scc);
+        		else if(scc.getPassed()==2) passedList.add(scc);
+        	}
+        }
+        model.addAttribute("beingList", beingList);
+        model.addAttribute("passedList", passedList);
 
         return "student/selectCourse";
     }
@@ -177,12 +215,30 @@ public class StudentController {
 			Course course = courseService.findById(feedback.getCourseid());
 			feedback.setCoursename(course.getCoursename());
 			feedback.setTeacherid(course.getTeacherid());
+			feedback.setTeachername(course.getTeachername());
 		
 			feedback.setProcessed(false);
 		
 			feedbackService.save(feedback);
 		}
 		
-		return "redirect:Responsive";
+		return "redirect:showResponsive";
+    }
+    
+    @RequestMapping(value = "/showFeedtext", method = {RequestMethod.GET})
+    public String showFeedtext(Integer id, Model model) throws Exception {
+		Feedback feedback =feedbackService.findByID(id);
+		model.addAttribute("feedback", feedback);
+        return "student/showFeedtext";
+    }
+    
+    @RequestMapping(value = "/showResponsive")
+    public String showResponsive(Model model) throws Exception {
+		Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+		List<Feedback> list = feedbackService.findByStudentID(Integer.parseInt(username));
+		model.addAttribute("feedbackList", list);
+		
+        return "student/showResponsive";
     }
 }

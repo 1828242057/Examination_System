@@ -14,6 +14,9 @@ public interface SelectedCourseService {
 
     //根据课程id分页查询课程
     List<SelectedCourseCustom> findByCourseIDPaging(Integer page, Integer id) throws Exception;
+    
+    //根据选课id查询选课
+    SelectedCourseCustom findById(Integer id) throws Exception;
 
     //获取该课程学生数
     Integer countByCourseID(Integer id) throws Exception;

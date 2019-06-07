@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,15 +65,19 @@ public class TeacherController {
             return "";
         }
         List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+        List<SelectedCourseCustom> selectedList = new ArrayList<SelectedCourseCustom>();
         Scores scores;
         for(SelectedCourseCustom scc:list) {
-        	scores=scoresService.findByID(scc.getId());
-        	scc.setAttendancescores(scores.getAttendancescores());
-        	scc.setBoardscores(scores.getBoardscores());
-        	scc.setHomeworkscores(scores.getHomeworkscores());
-        	scc.setExperimentalscores(scores.getExperimentalscores());
+        	if(!scc.getPassed().equals(0)) {
+        		scores=scoresService.findByID(scc.getId());
+        		scc.setAttendancescores(scores.getAttendancescores());
+        		scc.setBoardscores(scores.getBoardscores());
+        		scc.setHomeworkscores(scores.getHomeworkscores());
+        		scc.setExperimentalscores(scores.getExperimentalscores());
+        		selectedList.add(scc);
+        	}
         }
-        model.addAttribute("selectedCourseList", list);
+        model.addAttribute("selectedCourseList", selectedList);
         model.addAttribute("courseid", id);
         return "teacher/showGrade";
     }
@@ -182,4 +188,75 @@ public class TeacherController {
 		model.addAttribute("fileName",fileName);
         return "teacher/scoresUpload";
     }
+    
+    @RequestMapping(value = "/deleteFeedback")
+    public String deleteFeedback(Integer id,Model model) throws Exception {
+		feedbackService.remove(id);	
+        return "redirect:showResponsive";
+    }
+    
+    @RequestMapping(value = "/passedJoin")
+    public String passedJoin(Integer courseid,Model model) throws Exception {
+    	List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(courseid);
+    	List<SelectedCourseCustom> passedList=new ArrayList<SelectedCourseCustom>();
+    	
+    	for(SelectedCourseCustom scc:list) {
+    		if(scc.getPassed()==0) passedList.add(scc);
+    	}
+        model.addAttribute("passedList", passedList);
+        
+        CourseCustom cc=courseService.findById(courseid);
+        model.addAttribute("coursename", cc.getCoursename());
+        model.addAttribute("courseid", courseid);
+        model.addAttribute("type", "选课");
+    	return "teacher/doPassed";
+    }
+    
+    @RequestMapping(value = "/passedQuit")
+    public String passedQuit(Integer courseid,Model model) throws Exception {
+    	List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(courseid);
+    	List<SelectedCourseCustom> passedList=new ArrayList<SelectedCourseCustom>();
+    	
+    	for(SelectedCourseCustom scc:list) {
+    		if(scc.getPassed()==2) passedList.add(scc);
+    	}
+        model.addAttribute("passedList", passedList);
+        
+        CourseCustom cc=courseService.findById(courseid);
+        model.addAttribute("coursename", cc.getCoursename());
+        model.addAttribute("courseid", courseid);
+        model.addAttribute("type", "退选");
+    	return "teacher/doPassed";
+    }
+    
+    @RequestMapping(value = "/passedYes")
+    public String passedYes(Integer id,Integer type,Model model) throws Exception {
+    	SelectedCourseCustom selectedCourseCustom = selectedCourseService.findById(id);
+    	if(type.equals(0)) {
+    		selectedCourseCustom.setPassed(1);
+    		selectedCourseService.updataOne(selectedCourseCustom);
+    		return "redirect:passedJoin?courseid="+selectedCourseCustom.getCourseid();
+    	}
+    	else{
+    		scoresService.remove(id);
+    		selectedCourseService.remove(id);
+    		return "redirect:passedQuit?courseid="+selectedCourseCustom.getCourseid();
+    	}
+    }
+    
+    @RequestMapping(value = "/passedNo")
+    public String passedNo(Integer id,Integer type,Model model) throws Exception {
+    	SelectedCourseCustom selectedCourseCustom = selectedCourseService.findById(id);
+    	if(type.equals(0)) {
+    		scoresService.remove(id);
+    		selectedCourseService.remove(id);
+    		return "redirect:passedJoin?courseid="+selectedCourseCustom.getCourseid();
+    	}
+    	else{
+    		selectedCourseCustom.setPassed(1);
+    		selectedCourseService.updataOne(selectedCourseCustom);
+    		return "redirect:passedQuit?courseid="+selectedCourseCustom.getCourseid();
+    	}
+    }
+    
 }

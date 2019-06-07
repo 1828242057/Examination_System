@@ -26,4 +26,6 @@ public interface SelectedcourseMapper {
     int updateByExample(@Param("record") Selectedcourse record, @Param("example") SelectedcourseExample example);
     
     int deleteByID(Integer id);
+    
+    Selectedcourse selectById(Integer id);
 }

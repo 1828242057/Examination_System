@@ -8,5 +8,6 @@ public interface FeedbackMapper {
 	int insert(Feedback record);
 	Feedback selectByID(Integer id);
 	List<Feedback> selectByTeacherID(Integer teacherid);
+	List<Feedback> selectByStudentID(Integer studentid);
 	int deleteByID(Integer id);
 }

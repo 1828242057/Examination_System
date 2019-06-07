@@ -39,16 +39,18 @@ public class TeacherExportGrade implements ExcelInfo{
 		Map<String,Object> gradeMap;
         Scores scores;
         for(SelectedCourseCustom scc:list) {
-        	gradeMap = new LinkedHashMap<>();
-        	scores=scoresService.findByID(scc.getId());
-			gradeMap.put("studentid", scc.getStudentid());
-			gradeMap.put("username", scc.getStudentCustom().getUsername());
-			gradeMap.put("boardscores", scores.getBoardscores());
-			gradeMap.put("homeworkscores", scores.getHomeworkscores());
-			gradeMap.put("attendancescores", scores.getAttendancescores());
-			gradeMap.put("experimentalscores", scores.getExperimentalscores());
-			gradeMap.put("mark", scc.getMark());
-			grades.add(gradeMap);
+        	if(!scc.getPassed().equals(0)) {
+        		gradeMap = new LinkedHashMap<>();
+        		scores=scoresService.findByID(scc.getId());
+        		gradeMap.put("studentid", scc.getStudentid());
+        		gradeMap.put("username", scc.getStudentCustom().getUsername());
+        		gradeMap.put("boardscores", scores.getBoardscores());
+        		gradeMap.put("homeworkscores", scores.getHomeworkscores());
+        		gradeMap.put("attendancescores", scores.getAttendancescores());
+        		gradeMap.put("experimentalscores", scores.getExperimentalscores());
+        		gradeMap.put("mark", scc.getMark());
+        		grades.add(gradeMap);
+        	}
         }
         
 		List<ExcelBean> excel = new ArrayList<>();

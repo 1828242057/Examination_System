@@ -16,7 +16,7 @@
 				href="${pageContext.request.contextPath}/student/passwordRest">修改密码<span
 					class="glyphicon glyphicon-pencil pull-right"></span></a></li>
 			<li><a
-				href="${pageContext.request.contextPath}/student/Responsive">反馈信息<span
+				href="${pageContext.request.contextPath}/student/showResponsive">反馈信息<span
 					class="glyphicon glyphicon-comment pull-right"></span></a></li>
 			<li><a href="${pageContext.request.contextPath}/logout">退出系统<span
 					class="glyphicon glyphicon-log-out pull-right"></span></a></li>

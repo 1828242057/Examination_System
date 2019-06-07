@@ -13,10 +13,11 @@
     <result column="studentName" property="studentname" jdbcType="VARCHAR" />
     <result column="courseName" property="coursename" jdbcType="VARCHAR" />
     <result column="processed" property="processed" jdbcType="BIT" />
+    <result column="teacherName" property="teachername" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, studentID, courseID, teacherID, feedbackText, processText, feedbackDate, feedbackTime, studentName, courseName, processed
+    ID, studentID, courseID, teacherID, feedbackText, processText, feedbackDate, feedbackTime, studentName, courseName, processed,teacherName
   </sql>
   
   <select id="selectByID" resultMap="BaseResultMap" parameterType="INTEGER">
@@ -31,6 +32,12 @@
     from feedback
     where teacherID = #{teacherid,jdbcType=INTEGER}
   </select>
+  <select id="selectByStudentID" resultMap="BaseResultMap" parameterType="INTEGER">
+  	select 
+  	<include refid="Base_Column_List" />
+    from feedback
+    where studentID = #{studentid,jdbcType=INTEGER}
+  </select>
   
   <update id="update" parameterType="com.system.po.Feedback">
     update feedback
@@ -44,7 +51,8 @@
       	feedbackTime = #{feedbacktime,jdbcType=TIME},
       	studentName = #{studentname,jdbcType=VARCHAR},
       	courseName = #{coursename,jdbcType=VARCHAR},
-      	processed = #{processed,jdbcType=BIT}
+      	processed = #{processed,jdbcType=BIT},
+      	teacherName = #{teachername,jdbcType=VARCHAR}
 	where ID = #{id,jdbcType=INTEGER}
   </update>
   
@@ -55,7 +63,7 @@
     values (
 	#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{teacherid,jdbcType=INTEGER},#{feedbacktext,jdbcType=VARCHAR}, #{processtext,jdbcType=VARCHAR}, 
 	#{feedbackdate,jdbcType=DATE},#{feedbacktime,jdbcType=TIME}, #{studentname,jdbcType=VARCHAR}, 
-	#{coursename,jdbcType=VARCHAR},#{processed,jdbcType=BIT}
+	#{coursename,jdbcType=VARCHAR},#{processed,jdbcType=BIT}, #{teachername,jdbcType=VARCHAR}
     )
   </insert>
   

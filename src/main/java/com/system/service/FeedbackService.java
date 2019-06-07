@@ -9,4 +9,5 @@ public interface FeedbackService {
 	Feedback findByID(Integer id) throws Exception;
 	List<Feedback> findByTeacherID(Integer id) throws Exception;
 	void remove(Integer id) throws Exception;
+	List<Feedback> findByStudentID(Integer id) throws Exception;
 }

@@ -239,7 +239,6 @@ public class AdminController {
     //删除教师
     @RequestMapping(value = "/removeTeacher",method = {RequestMethod.GET})
     public String removeTeacher(Integer id) throws Exception {
-    	System.out.println(id);
         if (id == null) {
             //加入没有带教师id就进来的话就返回教师显示页面
             return "admin/showTeacher";

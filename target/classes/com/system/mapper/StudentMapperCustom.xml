@@ -25,6 +25,7 @@
             <result column="courseID" property="courseid"/>
             <result column="studentID" property="studentid"/>
             <result column="mark" property="mark"/>
+            <result column="passed" property="passed"/>
             <!--配置映射的关系的课程信息-->
             <association property="courseCustom" javaType="CourseCustom">
                 <id column="courseID" property="courseid"/>
@@ -54,7 +55,7 @@
     <select id="findStudentAndSelectCourseListById" parameterType="int" resultMap="StudentAndSelectCourseResultMap">
         SELECT
           student.*,
-          selectedcourse.id,selectedcourse.courseid,selectedcourse.studentid,selectedcourse.mark,
+          selectedcourse.*,
           course.*
         FROM
           student,

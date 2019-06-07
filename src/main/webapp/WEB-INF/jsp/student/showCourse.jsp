@@ -65,7 +65,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${courseList}" var="item">
+							<c:forEach items="${notList}" var="item">
 								<tr>
 									<td>${item.courseid}</td>
 									<td>${item.coursename}</td>
@@ -81,9 +81,60 @@
 									<td>${item.experimentalscores}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
-											onClick="location.href='${pageContext.request.contextPath}/student/stuSelectedCourse?id=${item.courseid}'">选课</button>
+											onClick="location.href='${pageContext.request.contextPath}/student/stuSelectedCourse?id=${item.courseid}&page=${pagingVO.curentPageNo}'">选课</button>
 										<!--弹出框-->
 									</td>
+								</tr>
+							</c:forEach>
+							<c:forEach items="${passedList}" var="item">
+								<tr>
+									<td>${item.courseid}</td>
+									<td>${item.coursename}</td>
+									<td>${item.teachername}</td>
+									<td>${item.coursetime}</td>
+									<td>${item.classroom}</td>
+									<td>${item.courseweek}</td>
+									<td>${item.coursetype}</td>
+									<td>${item.score}</td>
+									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
+									<td><font color="orange" size="2">待审核</font></td>
+								</tr>
+							</c:forEach>
+							<c:forEach items="${beingList}" var="item">
+								<tr>
+									<td>${item.courseid}</td>
+									<td>${item.coursename}</td>
+									<td>${item.teachername}</td>
+									<td>${item.coursetime}</td>
+									<td>${item.classroom}</td>
+									<td>${item.courseweek}</td>
+									<td>${item.coursetype}</td>
+									<td>${item.score}</td>
+									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
+									<td><font color="green" size="2">修习中</font></td>
+								</tr>
+							</c:forEach>
+							<c:forEach items="${alreadyList}" var="item">
+								<tr>
+									<td>${item.courseid}</td>
+									<td>${item.coursename}</td>
+									<td>${item.teachername}</td>
+									<td>${item.coursetime}</td>
+									<td>${item.classroom}</td>
+									<td>${item.courseweek}</td>
+									<td>${item.coursetype}</td>
+									<td>${item.score}</td>
+									<td>${item.boardscores}</td>
+									<td>${item.homeworkscores}</td>
+									<td>${item.attendancescores}</td>
+									<td>${item.experimentalscores}</td>
+									<td><font color="red" size="2">已修习</font></td>
 								</tr>
 							</c:forEach>
 						</tbody>

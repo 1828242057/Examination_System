@@ -30,8 +30,10 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
-							<h1 style="text-align: center;">反馈信息</h1>
+							<h1 style="text-align: center;">新建反馈</h1>
 						</div>
+						<button type="button" class="btn btn-success active" onclick="returnlist()" 
+						style="margin-top:25px;margin-right:20px;float:right">返回</button>
 					</div>
 					<div class="panel-body">
 						<form name="reset" class="form-horizontal" role="form"
@@ -68,5 +70,9 @@
 </body>
 <script type="text/javascript">
 	$("#nav li:nth-child(5)").addClass("active")
+	function returnlist() {
+        	//返回反馈列表界面
+        	window.location.href="${pageContext.request.contextPath}/student/showResponsive";
+    	}
 </script>
 </html>

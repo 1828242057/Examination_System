@@ -51,38 +51,28 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label">反馈内容:</label>
 								<div class="col-sm-10">
-									<textarea id="ct" rows="10" name="feedbacktext" cols="80" readonly style="color:gray;">
-									</textarea>
+									<textarea id="ct" rows="10" name="feedbacktext" cols="80" readonly style="color:gray;">${feedback.feedbacktext}</textarea>
 								</div>
-								<script type="text/javascript">
-								//要实现内容为反馈表中的内容  cscs替代
-									$("#ct").val("${feedback.feedbacktext}");  
-								</script>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">处理结果:</label>
 								<div class="col-sm-10">
 									<c:choose>
 										<c:when test="${feedback.processed ==false}">
-											<textarea id="processResult" name="processtext" rows="10" cols="80" >
-											</textarea>
+											<textarea id="processResult" name="processtext" rows="10" cols="80" ></textarea>
 										</c:when>
 										<c:otherwise>
-											<textarea id="processResult" name="processtext" rows="10" cols="80" readonly style="color:gray;">
-											</textarea>
+											<textarea id="processResult" name="processtext" rows="10" cols="80" readonly style="color:gray;">${feedback.processtext}</textarea>
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</div>
-							<script type="text/javascript">
-								//要实现内容为反馈表中的内容  cscs替代
-									$("#processResult").val("${feedback.processtext}");  
-							</script>
-							<c:if test="${feedback.processed ==false}">
-								<div class="form-group" style="text-align: center">
+							<div class="form-group" style="text-align: center">
+								<c:if test="${feedback.processed ==false}">
 									<button class="btn btn-default" type="submit">处理完成</button>
-								</div>
-							</c:if>
+								</c:if>
+							<button class="btn btn-default" type="button" onclick="location.href='${pageContext.request.contextPath}/teacher/deleteFeedback?id=${feedback.id}'">删除反馈</button>
+							</div>
 						</form>
 					</div>
 				</div>

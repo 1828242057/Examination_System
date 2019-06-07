@@ -49,7 +49,7 @@ public class StudentExportGrade implements ExcelInfo{   //学生导出课程信�
         	Map<String,Object> gradeMap;
         	Scores scores;
         	for(SelectedCourseCustom sc:list) {
-        		if(sc.getMark()!=null) {
+        		if(sc.getMark()!=null && !sc.getPassed().equals(0)) {
         			gradeMap = new LinkedHashMap<>();
         			scores=scoresService.findByID(sc.getId());
         			gradeMap.put("courseid", sc.getCourseid());

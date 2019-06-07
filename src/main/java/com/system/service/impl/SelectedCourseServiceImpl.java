@@ -60,6 +60,14 @@ public class SelectedCourseServiceImpl implements SelectedCourseService {
 
         return secList;
     }
+    
+    public SelectedCourseCustom findById(Integer id) throws Exception{
+    	Selectedcourse selectedCourse=selectedcourseMapper.selectById(id);
+    	if(selectedCourse==null) return null;
+    	SelectedCourseCustom selectedCourseCustom = new SelectedCourseCustom();
+    	BeanUtils.copyProperties(selectedCourse, selectedCourseCustom);
+    	return selectedCourseCustom;
+    }
 
     public List<SelectedCourseCustom> findByCourseIDPaging(Integer page, Integer id) throws Exception {
         return null;

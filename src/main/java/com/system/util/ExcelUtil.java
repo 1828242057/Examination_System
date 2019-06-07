@@ -45,7 +45,6 @@ public class ExcelUtil {
 		createFont(workbook);//字体样式
 		createTableHeader(sheet,map);//创建标题
 		createTableRows(sheet,map,objs,clazz);//创建内容
-		System.out.println(workbook);
 		return workbook;
 	}
 	private static XSSFCellStyle fontStyle;

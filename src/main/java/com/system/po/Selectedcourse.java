@@ -9,6 +9,8 @@ public class Selectedcourse {
 
     private Integer mark;
     
+    private Integer passed;
+    
 	
     
     public Integer getId() {
@@ -41,5 +43,13 @@ public class Selectedcourse {
 
     public void setMark(Integer mark) {
         this.mark = mark;
+    }
+    
+    public Integer getPassed() {
+        return passed;
+    }
+
+    public void setPassed(Integer passed) {
+        this.passed = passed;
     }
 }
