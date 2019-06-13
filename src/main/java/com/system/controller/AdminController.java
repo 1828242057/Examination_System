@@ -309,6 +309,7 @@ public class AdminController {
     public String addCourse(CourseCustom courseCustom, Model model) throws Exception {
     	TeacherCustom t = teacherService.findById(courseCustom.getTeacherid());
     	courseCustom.setTeachername(t.getUsername());
+    	courseCustom.setSession(1);
         Boolean result = courseService.save(courseCustom);
 
         if (!result) {

@@ -377,6 +377,8 @@ public class UploadController {
 						
 						TeacherCustom teacherCustom = teacherService.findById(t.getTeacherid());
 						t.setTeachername(teacherCustom.getUsername());
+						
+						t.setSession(1);
 					
 						if(!courseService.save(t))
 							throw new Exception();
@@ -402,7 +404,7 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value = "/scoresUpload",method = {RequestMethod.POST}, produces = "text/html;charset=UTF-8")
-	public String ScoresUpload(@RequestParam("file") MultipartFile file, @RequestParam("courseid") Integer courseid, Model model) throws Exception {
+	public String ScoresUpload(@RequestParam("file") MultipartFile file, @RequestParam("courseid") Integer courseid, @RequestParam("session") Integer session, Model model) throws Exception {
 
 		int i=0;
 		String fileName=file.getOriginalFilename();
@@ -448,12 +450,16 @@ public class UploadController {
 						}
 						int studentID_int=Integer.valueOf(s);
 						
-						SelectedCourseCustom scc=new SelectedCourseCustom();
-						scc.setStudentid(studentID_int);
-						scc.setCourseid(courseid);
-						SelectedCourseCustom scc2=selectedCourseService.findOne(scc);
-					
-						if(scc2==null) throw new Exception();
+						CourseCustom courseCustom = new CourseCustom();
+						courseCustom.setCourseid(courseid);
+						courseCustom.setSession(session);
+						List<SelectedCourseCustom> sccList=selectedCourseService.findPresentSessionCourse(courseCustom);
+						
+						int loopSccList;
+						for(loopSccList=0;loopSccList<sccList.size();loopSccList++) {
+							if(sccList.get(loopSccList).getStudentid()==studentID_int) break;
+						}
+						if(loopSccList==sccList.size()) throw new Exception();
 						
 						s = nf.format(boardScores.getNumericCellValue());
 						if (s.indexOf(",") >= 0) {
@@ -481,11 +487,11 @@ public class UploadController {
 						
 						if(boardScores_int<0 || homeworkScores_int<0 || attendanceScores_int<0 || experimentalScores_int<0) throw new Exception();
 						
-						scc2.setMark(boardScores_int+homeworkScores_int+attendanceScores_int+experimentalScores_int);
-						selectedCourseService.updataOne(scc2);
+						sccList.get(loopSccList).setMark(boardScores_int+homeworkScores_int+attendanceScores_int+experimentalScores_int);
+						selectedCourseService.updataOne(sccList.get(loopSccList));
 	
 						Scores scores= new Scores();
-						scores.setSelectedcourseid(scc2.getId());
+						scores.setSelectedcourseid(sccList.get(loopSccList).getId());
 						scores.setAttendancescores(attendanceScores_int);
 						scores.setBoardscores(boardScores_int);
 						scores.setExperimentalscores(experimentalScores_int);

@@ -26,6 +26,8 @@
             <result column="studentID" property="studentid"/>
             <result column="mark" property="mark"/>
             <result column="passed" property="passed"/>
+            <result column="examinationPlan" property="examinationplan" jdbcType="VARCHAR" />
+   			<result column="session" property="session" jdbcType="INTEGER" />
             <!--配置映射的关系的课程信息-->
             <association property="courseCustom" javaType="CourseCustom">
                 <id column="courseID" property="courseid"/>
@@ -42,6 +44,8 @@
             	<result column="homeworkScores" property="homeworkscores"/>
             	<result column="attendanceScores" property="attendancescores"/>
             	<result column="experimentalScores" property="experimentalscores"/>
+            	<result column="session" property="session" jdbcType="INTEGER" />
+    			<result column="examinationPlan" property="examinationplan" jdbcType="VARCHAR" />
             </association>
         </collection>
     </resultMap>

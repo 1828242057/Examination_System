@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2019-06-07 17:56:07
+Date: 2019-06-13 16:40:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,22 +51,26 @@ CREATE TABLE `course` (
   `homeworkScores` int(11) NOT NULL,
   `attendanceScores` int(11) NOT NULL,
   `experimentalScores` int(11) NOT NULL,
+  `session` int(11) NOT NULL,
+  `examinationPlan` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`courseID`),
   KEY `collegeID` (`collegeID`),
   KEY `teacherID` (`teacherID`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`),
   CONSTRAINT `course_ibfk_2` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('1', 'C语言程序设计', '1000', '周一', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10');
-INSERT INTO `course` VALUES ('2', 'Java程序设计', '1000', '周三', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10');
-INSERT INTO `course` VALUES ('3', 'C++程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10');
-INSERT INTO `course` VALUES ('4', 'C#程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10');
-INSERT INTO `course` VALUES ('5', '哲学', '1002', '周一', '西一 203', '8', '必修课', '1', '2', '老孙', '60', '20', '10', '10');
-INSERT INTO `course` VALUES ('6', '嵌入式系统', '1000', '周五', '西一204', '12', '必修课', '1', '4', '赵老', '70', '0', '10', '20');
+INSERT INTO `course` VALUES ('1', 'C语言程序设计', '1000', '周一', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10', '2', null);
+INSERT INTO `course` VALUES ('2', 'Java程序设计', '1000', '周三', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10', '1', '2019.06.18 8:20-10:20 东三101');
+INSERT INTO `course` VALUES ('3', 'C++程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10', '1', null);
+INSERT INTO `course` VALUES ('4', 'C#程序设计', '1001', '周四', '西一 202', '10', '必修课', '1', '3', '钱老', '70', '10', '10', '10', '1', null);
+INSERT INTO `course` VALUES ('5', '哲学', '1002', '周一', '西一 203', '8', '必修课', '1', '2', '老孙', '60', '20', '10', '10', '1', null);
+INSERT INTO `course` VALUES ('6', '嵌入式', '1000', '周五', '西一204', '12', '必修课', '1', '4', '赵老', '70', '0', '10', '20', '1', '2019.06.19 8:20-10:20 东三101');
+INSERT INTO `course` VALUES ('8', '计算机组成原理', '1000', '周五', '西一204', '12', '必修课', '1', '4', '赵老', '70', '0', '10', '20', '1', null);
+INSERT INTO `course` VALUES ('9', '编译原理', '1000', '周三', '西一 201', '10', '必修课', '1', '3', '赵老', '70', '10', '10', '10', '1', null);
 
 -- ----------------------------
 -- Table structure for `feedback`
@@ -92,12 +96,12 @@ CREATE TABLE `feedback` (
   CONSTRAINT `feedback_fk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`userID`),
   CONSTRAINT `feedback_fk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
   CONSTRAINT `feedback_fk_3` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
-INSERT INTO `feedback` VALUES ('11', '10000', '1', '1000', '老师您好！我想请个假！', null, '老一', 'C语言程序设计', '', '2019-06-07', '11:50:55', '赵老');
+INSERT INTO `feedback` VALUES ('12', '10001', '1', '1000', '你好', '你好', '老二', 'C语言程序设计', '', '2019-06-07', '18:11:24', '赵老');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -135,8 +139,8 @@ CREATE TABLE `scores` (
 -- ----------------------------
 -- Records of scores
 -- ----------------------------
-INSERT INTO `scores` VALUES ('52', '0', '0', '0', '0');
-INSERT INTO `scores` VALUES ('56', '70', '10', '10', '0');
+INSERT INTO `scores` VALUES ('52', '60', '0', '0', '0');
+INSERT INTO `scores` VALUES ('56', '70', '10', '10', '10');
 INSERT INTO `scores` VALUES ('57', '59', '0', '0', '0');
 INSERT INTO `scores` VALUES ('60', '70', '10', '10', '10');
 INSERT INTO `scores` VALUES ('61', null, null, null, null);
@@ -153,6 +157,7 @@ INSERT INTO `scores` VALUES ('72', null, null, null, null);
 INSERT INTO `scores` VALUES ('75', null, null, null, null);
 INSERT INTO `scores` VALUES ('77', null, null, null, null);
 INSERT INTO `scores` VALUES ('78', null, null, null, null);
+INSERT INTO `scores` VALUES ('79', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `selectedcourse`
@@ -164,34 +169,37 @@ CREATE TABLE `selectedcourse` (
   `studentID` int(11) NOT NULL,
   `mark` int(11) DEFAULT NULL COMMENT '成绩',
   `passed` int(1) NOT NULL,
+  `examinationPlan` varchar(200) DEFAULT NULL,
+  `session` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `courseID` (`courseID`),
   KEY `studentID` (`studentID`),
   CONSTRAINT `selectedcourse_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
   CONSTRAINT `selectedcourse_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `student` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of selectedcourse
 -- ----------------------------
-INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '0', '1');
-INSERT INTO `selectedcourse` VALUES ('56', '1', '10001', '90', '1');
-INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', '59', '1');
-INSERT INTO `selectedcourse` VALUES ('60', '2', '10001', '100', '1');
-INSERT INTO `selectedcourse` VALUES ('61', '3', '10001', null, '1');
-INSERT INTO `selectedcourse` VALUES ('62', '4', '10001', null, '1');
-INSERT INTO `selectedcourse` VALUES ('64', '1', '10002', '80', '1');
-INSERT INTO `selectedcourse` VALUES ('65', '1', '10003', '70', '1');
-INSERT INTO `selectedcourse` VALUES ('66', '1', '10004', '60', '1');
-INSERT INTO `selectedcourse` VALUES ('67', '1', '10005', '40', '1');
-INSERT INTO `selectedcourse` VALUES ('68', '1', '10006', '30', '1');
-INSERT INTO `selectedcourse` VALUES ('69', '1', '10007', '20', '1');
-INSERT INTO `selectedcourse` VALUES ('70', '1', '10008', '10', '1');
-INSERT INTO `selectedcourse` VALUES ('71', '1', '10009', '10', '1');
-INSERT INTO `selectedcourse` VALUES ('72', '4', '10000', null, '1');
-INSERT INTO `selectedcourse` VALUES ('75', '5', '10000', null, '1');
-INSERT INTO `selectedcourse` VALUES ('77', '3', '10000', null, '0');
-INSERT INTO `selectedcourse` VALUES ('78', '6', '10000', null, '1');
+INSERT INTO `selectedcourse` VALUES ('52', '1', '10000', '60', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('56', '1', '10001', '100', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('57', '2', '10000', '59', '1', '2019.06.18 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('60', '2', '10001', '100', '1', '2019.06.18 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('61', '3', '10001', null, '2', null, '1');
+INSERT INTO `selectedcourse` VALUES ('62', '4', '10001', null, '1', null, '1');
+INSERT INTO `selectedcourse` VALUES ('64', '1', '10002', '80', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('65', '1', '10003', '70', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('66', '1', '10004', '60', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('67', '1', '10005', '40', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('68', '1', '10006', '30', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('69', '1', '10007', '20', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('70', '1', '10008', '10', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('71', '1', '10009', '10', '1', '2019.06.17 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('72', '4', '10000', null, '1', null, '1');
+INSERT INTO `selectedcourse` VALUES ('75', '5', '10000', null, '1', null, '1');
+INSERT INTO `selectedcourse` VALUES ('77', '3', '10000', null, '0', null, '1');
+INSERT INTO `selectedcourse` VALUES ('78', '6', '10000', null, '1', '2019.06.19 8:20-10:20 东三101', '1');
+INSERT INTO `selectedcourse` VALUES ('79', '5', '10001', null, '1', null, '1');
 
 -- ----------------------------
 -- Table structure for `student`

@@ -15,6 +15,8 @@
     <result column="homeworkScores" property="homeworkscores" jdbcType="INTEGER" />
     <result column="attendanceScores" property="attendancescores" jdbcType="INTEGER" />
     <result column="experimentalScores" property="experimentalscores" jdbcType="INTEGER" />
+    <result column="session" property="session" jdbcType="INTEGER" />
+    <result column="examinationPlan" property="examinationplan" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List" >
     courseID, courseName, teacherID, courseTime, classRoom, courseWeek, courseType, collegeID, 
-    score,teacherName,boardScores,homeworkScores,attendanceScores,experimentalScores
+    score,teacherName,boardScores,homeworkScores,attendanceScores,experimentalScores,session,examinationPlan
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.CourseExample" >
     select
@@ -115,13 +117,16 @@
     insert into course (courseName, teacherID, 
       courseTime, classRoom, courseWeek, 
       courseType, collegeID, score,
-      teacherName,boardScores,homeworkScores,attendanceScores,experimentalScores
+      teacherName,boardScores,homeworkScores,attendanceScores,
+      experimentalScores,session,examinationPlan
       )
     values (#{coursename,jdbcType=VARCHAR}, #{teacherid,jdbcType=INTEGER}, 
       #{coursetime,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{courseweek,jdbcType=INTEGER}, 
       #{coursetype,jdbcType=VARCHAR}, #{collegeid,jdbcType=INTEGER}, #{score,jdbcType=INTEGER},
       #{teachername,jdbcType=INTEGER},#{boardscores,jdbcType=INTEGER},
-      #{homeworkscores,jdbcType=INTEGER}, #{attendancescores,jdbcType=INTEGER}, #{experimentalscores,jdbcType=INTEGER}
+      #{homeworkscores,jdbcType=INTEGER}, #{attendancescores,jdbcType=INTEGER}, 
+      #{experimentalscores,jdbcType=INTEGER},#{session,jdbcType=INTEGER},
+      #{examinationplan,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.system.po.Course" >
@@ -164,7 +169,13 @@
         attendanceScores,
       </if>
       <if test="experimentalscores != null" >
-        experimentalScores
+        experimentalScores,
+      </if>
+      <if test="session != null" >
+      	session,
+      </if>
+      <if test="examinationplan != null" >
+      	examinationPlan
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -214,7 +225,13 @@
         #{attendancescores,jdbcType=INTEGER},
       </if>
       <if test="experimentalscores != null" >
-        #{experimentalscores,jdbcType=INTEGER}
+        #{experimentalscores,jdbcType=INTEGER},
+      </if>
+      <if test="session != null" >
+      	#{session,jdbcType=INTEGER},
+      </if>
+      <if test="examinationplan != null" >
+      	#{examinationplan,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -267,7 +284,13 @@
         attendanceScores = #{record.attendancescores,jdbcType=INTEGER},
       </if>
       <if test="experimentalscores != null" >
-        experimentalScores = #{record.experimentalscores,jdbcType=INTEGER}
+        experimentalScores = #{record.experimentalscores,jdbcType=INTEGER},
+      </if>
+      <if test="session != null" >
+        session = #{record.session,jdbcType=INTEGER},
+      </if>
+      <if test="examinationplan != null" >
+        examinationPlan = #{record.examinationplan,jdbcType=VARCHAR}
       </if>
     </set>
     <if test="_parameter != null" >
@@ -289,7 +312,9 @@
       teacherName = #{record.teachername,jdbcType=INTEGER},
       homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
       experimentalScores = #{record.experimentalscores,jdbcType=INTEGER},
-      attendanceScores = #{record.attendancescores,jdbcType=INTEGER}
+      attendanceScores = #{record.attendancescores,jdbcType=INTEGER},
+      session = #{record.session,jdbcType=INTEGER},
+      examinationPlan = #{record.examinationplan,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -334,7 +359,13 @@
         experimentalScores = #{experimentalscores,jdbcType=INTEGER},
       </if>
       <if test="attendancescores != null" >
-        attendanceScores = #{attendancescores,jdbcType=INTEGER}
+        attendanceScores = #{attendancescores,jdbcType=INTEGER},
+      </if>
+      <if test="session != null" >
+        session = #{session,jdbcType=INTEGER},
+      </if>
+      <if test="examinationplan != null" >
+        examinationPlan = #{examinationplan,jdbcType=VARCHAR}
       </if>
     </set>
     where courseID = #{courseid,jdbcType=INTEGER}
@@ -350,10 +381,12 @@
       collegeID = #{collegeid,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},
       teacherName = #{teachername,jdbcType=INTEGER},
-      homeworkScores = #{record.homeworkscores,jdbcType=INTEGER},
-      boardScores = #{record.boardscores,jdbcType=INTEGER},
-      experimentalScores = #{record.experimentalscores,jdbcType=INTEGER},
-      attendanceScores = #{record.attendancescores,jdbcType=INTEGER}
+      homeworkScores = #{homeworkscores,jdbcType=INTEGER},
+      boardScores = #{boardscores,jdbcType=INTEGER},
+      experimentalScores = #{experimentalscores,jdbcType=INTEGER},
+      attendanceScores = #{attendancescores,jdbcType=INTEGER},
+      session = #{session,jdbcType=INTEGER},
+      examinationPlan = #{examinationplan,jdbcType=VARCHAR}
     where courseID = #{courseid,jdbcType=INTEGER}
   </update>
 </mapper>

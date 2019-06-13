@@ -109,4 +109,9 @@ public class TeacherExportCourseStatistics implements ExcelInfo{
 	public XSSFWorkbook exportExcelInfo() throws Exception{
 		return null;
 	}
+	
+	@Override
+	public XSSFWorkbook exportExcelInfoWithIdAndSession(Integer id, Integer session) throws Exception{
+		return null;
+	}
 }

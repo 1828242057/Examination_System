@@ -11,7 +11,25 @@ public class Selectedcourse {
     
     private Integer passed;
     
-	
+    private String examinationplan;
+    
+    private Integer session;
+    
+    public Integer getSession() {
+        return session;
+    }
+
+    public void setSession(Integer session) {
+        this.session = session;
+    }
+    
+    public String getExaminationplan() {
+        return examinationplan;
+    }
+
+    public void setExaminationplan(String examinationplan) {
+        this.examinationplan = examinationplan;
+    }
     
     public Integer getId() {
         return id;

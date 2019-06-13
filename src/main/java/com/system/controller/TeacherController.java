@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
@@ -60,15 +60,16 @@ public class TeacherController {
 
     // 显示成绩
     @RequestMapping(value = "/gradeCourse")
-    public String gradeCourse(Integer id, Model model) throws Exception {
+    public String gradeCourse(Integer id, Integer session, Model model) throws Exception {
         if (id == null) {
             return "";
         }
         List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+        CourseCustom cc = courseService.findById(id);
         List<SelectedCourseCustom> selectedList = new ArrayList<SelectedCourseCustom>();
         Scores scores;
         for(SelectedCourseCustom scc:list) {
-        	if(!scc.getPassed().equals(0)) {
+        	if(!scc.getPassed().equals(0) && scc.getSession().equals(session)) {
         		scores=scoresService.findByID(scc.getId());
         		scc.setAttendancescores(scores.getAttendancescores());
         		scc.setBoardscores(scores.getBoardscores());
@@ -78,7 +79,8 @@ public class TeacherController {
         	}
         }
         model.addAttribute("selectedCourseList", selectedList);
-        model.addAttribute("courseid", id);
+        model.addAttribute("courseCustom", cc);
+        model.addAttribute("session", session);
         return "teacher/showGrade";
     }
 
@@ -181,8 +183,9 @@ public class TeacherController {
     }
     
     @RequestMapping(value = "/scoresUpload", method = {RequestMethod.GET})
-    private String scoresUpload(Integer courseid, String failMessage, String successMessage, String fileName, Model model) throws Exception {
+    private String scoresUpload(Integer courseid, Integer session, String failMessage, String successMessage, String fileName, Model model) throws Exception {
     	model.addAttribute("courseid", courseid);
+    	model.addAttribute("session", session);
     	model.addAttribute("failMessage", failMessage);
 		model.addAttribute("successMessage", successMessage);
 		model.addAttribute("fileName",fileName);
@@ -259,4 +262,46 @@ public class TeacherController {
     	}
     }
     
+    @RequestMapping(value = "/endTheCourse")
+    public String endTheCourse(Integer courseid,Model model) throws Exception {
+    	CourseCustom courseCustom = courseService.findById(courseid);
+    	List<SelectedCourseCustom> selectedCourseCustom = selectedCourseService.findPresentSessionCourse(courseCustom);
+    	if(selectedCourseCustom.size()==0) throw new CustomException("没有修习该课程的学生，不能结课！");
+    	for(SelectedCourseCustom scc:selectedCourseCustom) {
+    		if(scc.getOver()==false) {
+    			throw new CustomException("还存在未打分的学生，不能结课！");
+    		}
+    	}
+    	courseCustom.setSession(courseCustom.getSession()+1);
+    	courseCustom.setExaminationplan(null);
+    	courseService.upadteById(courseid, courseCustom);
+    	return "redirect:gradeCourse?id="+courseid+"&session="+courseCustom.getSession();
+    }
+    
+    @RequestMapping(value = "/postTestInformation")
+    public String postTestInformation(Model model) throws Exception {
+    	Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+
+        List<CourseCustom> list = courseService.findByTeacherID(Integer.parseInt(username));
+        model.addAttribute("courseList", list);
+
+        return "teacher/postTestInformation";
+    }
+    
+    @RequestMapping(value = "/postTestInformation", method = {RequestMethod.POST})
+    public String postTestInformation(@RequestParam("courseid") Integer courseid, @RequestParam("examinationplan") String examinationplan, Model model) throws Exception {
+    	CourseCustom courseCustom = courseService.findById(courseid);
+    	courseCustom.setExaminationplan(examinationplan);
+    	courseService.upadteById(courseid, courseCustom);
+    	
+    	List<SelectedCourseCustom> sccList = selectedCourseService.findPresentSessionCourse(courseCustom);
+    	for(SelectedCourseCustom scc:sccList) {
+    		scc.setExaminationplan(examinationplan);
+    		selectedCourseService.updataOne(scc);
+    	}
+
+        return "redirect:postTestInformation";
+    }
+     
 }

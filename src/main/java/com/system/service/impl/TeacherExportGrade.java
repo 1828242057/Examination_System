@@ -33,9 +33,21 @@ public class TeacherExportGrade implements ExcelInfo{
 	
 	@Override
 	public XSSFWorkbook exportExcelInfoWithId(Integer id) throws Exception{
-
+		return null;
+	}
+	
+	@Override
+	public XSSFWorkbook exportExcelInfo() throws Exception{
+		return null;
+	}
+	
+	@Override
+	public XSSFWorkbook exportExcelInfoWithIdAndSession(Integer id, Integer session) throws Exception{
 		List<Map<String,Object>> grades=new ArrayList<Map<String,Object>>();
-		List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+		CourseCustom courseCustom =new CourseCustom();
+		courseCustom.setCourseid(id);
+		courseCustom.setSession(session);
+		List<SelectedCourseCustom> list = selectedCourseService.findPresentSessionCourse(courseCustom);
 		Map<String,Object> gradeMap;
         Scores scores;
         for(SelectedCourseCustom scc:list) {
@@ -64,15 +76,10 @@ public class TeacherExportGrade implements ExcelInfo{
 		excel.add(new ExcelBean("实验成绩","experimentalscores", 0));
 		excel.add(new ExcelBean("总成绩","mark",0));
 		map.put(0,excel);
-		CourseCustom courseCustom=courseService.findById(id);
-		String sheetName = courseCustom.getCoursename();
+		CourseCustom courseCustom2=courseService.findById(id);
+		String sheetName = courseCustom2.getCoursename()+"——第"+session+"届";
 		//调用ExcelUtil方法
 		XSSFWorkbook xssfWorkbook = ExcelUtil.createExcelFile(null, grades, map, sheetName);
 		return xssfWorkbook;
-	}
-	
-	@Override
-	public XSSFWorkbook exportExcelInfo() throws Exception{
-		return null;
 	}
 }

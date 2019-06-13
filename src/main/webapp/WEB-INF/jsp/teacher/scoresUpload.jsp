@@ -38,6 +38,8 @@
 						<input type="file" name="file"/>
 						<input readonly="readonly" type="hidden" class="form-control"
 										name="courseid" value="${courseid}">
+						<input readonly="readonly" type="hidden" class="form-control"
+										name="session" value="${session}">
 						<br/>
 						<div class="col-sm-1"></div>
 						<button type="submit">确认导入</button>

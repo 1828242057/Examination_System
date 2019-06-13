@@ -7,6 +7,8 @@
     <result column="studentID" property="studentid" jdbcType="INTEGER" />
     <result column="mark" property="mark" jdbcType="INTEGER" />
     <result column="passed" property="passed" jdbcType="INTEGER" />
+    <result column="examinationPlan" property="examinationplan" jdbcType="VARCHAR" />
+    <result column="session" property="session" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where>
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, courseID, studentID, mark, passed
+    ID, courseID, studentID, mark, passed, examinationPlan, session
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.SelectedcourseExample" >
     select
@@ -83,6 +85,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByCourseIDAndSession" resultMap="BaseResultMap" parameterType="com.system.po.CourseCustom" >
+    select <include refid="Base_Column_List" />
+    from selectedcourse
+    where courseID=#{courseid,jdbcType=INTEGER} AND session=#{session,jdbcType=INTEGER}
+  </select>
+  
   <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   select * from selectedcourse
   where ID=#{id,jdbcType=INTEGER}
@@ -107,9 +115,15 @@
     where courseID = #{courseid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.system.po.Selectedcourse" >
-    insert into selectedcourse (ID, courseID, studentID, mark, passed
+    insert into selectedcourse (ID, courseID, studentID, mark, passed, examinationPlan, session
       )
-    values (#{id,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER}, #{passed,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, 
+    		#{courseid,jdbcType=INTEGER}, 
+    		#{studentid,jdbcType=INTEGER}, 
+    		#{mark,jdbcType=INTEGER}, 
+    		#{passed,jdbcType=INTEGER},
+    		#{examinationplan,jdbcType=VARCHAR},
+    		#{session,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.system.po.Selectedcourse" >
@@ -128,7 +142,13 @@
         mark,
       </if>
       <if test="passed != null" >
-        passed
+        passed,
+      </if>
+      <if test="examinationplan != null" >
+        examinationPlan,
+      </if>
+      <if test="session != null" >
+        session
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -146,6 +166,12 @@
       </if>
       <if test="passed != null" >
         #{passed,jdbcType=INTEGER}
+      </if>
+      <if test="examinationplan != null" >
+        #{examinationplan,jdbcType=VARCHAR},
+      </if>
+      <if test="session != null" >
+        #{session,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
@@ -171,7 +197,13 @@
         mark = #{record.mark,jdbcType=INTEGER},
       </if>
       <if test="record.passed != null" >
-        passed = #{record.passed,jdbcType=INTEGER}
+        passed = #{record.passed,jdbcType=INTEGER},
+      </if>
+      <if test="record.examinationplan != null" >
+        examinationPlan = #{record.examinationplan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.session != null" >
+        session = #{record.session,jdbcType=INTEGER}
       </if>
     </set>
     <if test="_parameter != null" >
@@ -194,7 +226,13 @@
         mark = #{record.mark,jdbcType=INTEGER},
       </if>
       <if test="record.passed != null" >
-        passed = #{record.passed,jdbcType=INTEGER}
+        passed = #{record.passed,jdbcType=INTEGER},
+      </if>
+      <if test="record.examinationplan != null" >
+        examinationPlan = #{record.examinationplan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.session != null" >
+        session = #{record.session,jdbcType=INTEGER}
       </if>
     </set>
     <if test="_parameter != null" >

@@ -48,6 +48,7 @@
 								<th>周数</th>
 								<th>课程类型</th>
 								<th>学分</th>
+								<th>考试时间地点</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -63,6 +64,7 @@
 										<td>${item.couseCustom.courseweek}</td>
 										<td>${item.couseCustom.coursetype}</td>
 										<td>${item.couseCustom.score}</td>
+										<td>${item.examinationplan}</td>
 										<td><font color="orange" size="2">退选审核中</font></td>
 									</tr>
 							</c:forEach>
@@ -77,6 +79,7 @@
 										<td>${item.couseCustom.courseweek}</td>
 										<td>${item.couseCustom.coursetype}</td>
 										<td>${item.couseCustom.score}</td>
+										<td>${item.examinationplan}</td>
 										<td>
 											<button class="btn btn-default btn-xs btn-info"
 												onClick="location.href='${pageContext.request.contextPath}/student/outCourse?id=${item.id}'">退课</button>

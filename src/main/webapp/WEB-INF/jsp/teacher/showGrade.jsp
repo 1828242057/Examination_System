@@ -32,15 +32,32 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
-							<h1 class="col-md-5">已选该课程学生名单</h1>
-							<div class="btn-group" style="margin: 25px 40px 10px 0;float:right;">
+							<h1 class="col-md-7">学生名单<font size="4"><b>（${courseCustom.coursename}-第${session}届）</b></font></h1>
+							
+							<c:if test="${session == courseCustom.session}">
+								<button class="btn btn-default" style="margin-top:25px;margin-right:20px;float:right"
+								onClick="location.href='${pageContext.request.contextPath}/teacher/endTheCourse?courseid=${courseCustom.courseid}'">结课</button>
+							</c:if>
+							
+							<div class="btn-group" style="margin: 25px 20px 10px 0;float:right;">
+									<button class="btn btn-default">历届成绩</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<c:forEach var="i" begin="1" end="${courseCustom.session}">
+											<li><a href="${pageContext.request.contextPath}/teacher/gradeCourse?id=${courseCustom.courseid}&session=${i}">第${i}届</a></li>
+									    </c:forEach>
+									</ul>
+							</div>
+							<div class="btn-group" style="margin: 25px 20px 10px 0;float:right;">
 									<button class="btn btn-default">导入导出成绩</button>
 									<button data-toggle="dropdown" class="btn dropdown-toggle">
 										<span class="caret" ></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li><a href="${pageContext.request.contextPath}/teacher/scoresUpload?courseid=${courseid}">导入</a></li>
-										<li><a href="${pageContext.request.contextPath}/exportCourseGrade?courseid=${courseid}">导出</a></li>
+										<li><a href="${pageContext.request.contextPath}/teacher/scoresUpload?courseid=${courseCustom.courseid}&session=${session}">导入</a></li>
+										<li><a href="${pageContext.request.contextPath}/exportCourseGrade?courseid=${courseCustom.courseid}&session=${session}">导出</a></li>
 									</ul>
 							</div>
 						

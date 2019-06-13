@@ -1,5 +1,6 @@
 package com.system.service;
 
+import com.system.po.CourseCustom;
 import com.system.po.SelectedCourseCustom;
 
 import java.util.List;
@@ -11,6 +12,9 @@ public interface SelectedCourseService {
 
     //根据课程ID查询课程
     List<SelectedCourseCustom> findByCourseID(Integer id) throws Exception;
+    
+    //查询课程的当前届选课列表
+    List<SelectedCourseCustom> findPresentSessionCourse(CourseCustom courseCustom) throws Exception;
 
     //根据课程id分页查询课程
     List<SelectedCourseCustom> findByCourseIDPaging(Integer page, Integer id) throws Exception;

@@ -35,6 +35,8 @@
 						<form class="form-horizontal" role="form"
 							action="${pageContext.request.contextPath}/admin/editCourse"
 							id="editfrom" method="post">
+							<input readonly="readonly" type="hidden" class="form-control"
+								name="session" id="inputEmail3" value="${course.session}">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">课程号</label>
 								<div class="col-sm-10">

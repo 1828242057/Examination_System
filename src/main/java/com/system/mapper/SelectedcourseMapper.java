@@ -1,5 +1,7 @@
 package com.system.mapper;
 
+import com.system.po.CourseCustom;
+import com.system.po.SelectedCourseCustom;
 import com.system.po.Selectedcourse;
 import com.system.po.SelectedcourseExample;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +30,6 @@ public interface SelectedcourseMapper {
     int deleteByID(Integer id);
     
     Selectedcourse selectById(Integer id);
+    
+    List<Selectedcourse> selectByCourseIDAndSession(CourseCustom courseCustom);
 }

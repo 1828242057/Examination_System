@@ -33,8 +33,10 @@
 					<div class="panel-heading">
 						<div class="row">
 							<h1 class="col-md-5">我教授的课程</h1>
+							<button class="btn btn-default" style="margin-top:25px;margin-right:20px;float:right"
+							onClick="location.href='${pageContext.request.contextPath}/teacher/postTestInformation'">发布考试信息</button>
 							<form class="bs-example bs-example-form col-md-5" role="form"
-								style="margin: 20px 0 10px 0;"
+								style="margin: 25px 0 10px 0;"
 								action="${pageContext.request.contextPath}/admin/selectCourse"
 								id="form1" method="post">
 								<div class="input-group">
@@ -79,7 +81,7 @@
 									<td>${item.experimentalscores}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
-											onClick="location.href='${pageContext.request.contextPath}/teacher/gradeCourse?id=${item.courseid}'">成绩</button>
+											onClick="location.href='${pageContext.request.contextPath}/teacher/gradeCourse?id=${item.courseid}&session=${item.session}'">成绩</button>
 										<button class="btn btn-default btn-xs btn-info"
 											onClick="location.href='${pageContext.request.contextPath}/teacher/passedJoin?courseid=${item.courseid}'">审核</button>
 										<!--弹出框-->

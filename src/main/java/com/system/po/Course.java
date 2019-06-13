@@ -29,6 +29,26 @@ public class Course {
     
     private Integer experimentalscores;
     
+    private Integer session;
+    
+    private String examinationplan;
+    
+    public String getExaminationplan() {
+        return examinationplan;
+    }
+
+    public void setExaminationplan(String examinationplan) {
+        this.examinationplan = examinationplan;
+    }
+    
+    public Integer getSession() {
+        return session;
+    }
+
+    public void setSession(Integer session) {
+        this.session = session;
+    }
+    
     public Integer getBoardscores() {
         return boardscores;
     }

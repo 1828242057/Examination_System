@@ -32,6 +32,11 @@ public class AdminExportCourse implements ExcelInfo{
 	}
 	
 	@Override
+	public XSSFWorkbook exportExcelInfoWithIdAndSession(Integer id, Integer session) throws Exception{
+		return null;
+	}
+	
+	@Override
 	public XSSFWorkbook exportExcelInfo() throws Exception{
 		//根据条件查询数据
         List<Map<String,Object>> courses=new ArrayList<Map<String,Object>>();

@@ -126,14 +126,14 @@ public class ExportExcelController {
 	}
 	
 	@RequestMapping(value = "/exportCourseGrade" ,method = {RequestMethod.GET})
-	public String exportCourseGrade(Integer courseid,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public String exportCourseGrade(Integer courseid, Integer session, HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        response.reset(); //清除buffer缓存  
 	        //Map<String,Object> map=new HashMap<String,Object>();  
 	        // 指定下载的文件名  
 	        response.setContentType("application/vnd.ms-excel;charset=UTF-8");  
 	        response.setHeader("Content-Disposition","attachment;filename="+new String("课程成绩单.xls".getBytes(),"iso-8859-1"));
 	        //导出Excel对象  
-	        XSSFWorkbook workbook = teacherExportGrade.exportExcelInfoWithId(courseid);
+	        XSSFWorkbook workbook = teacherExportGrade.exportExcelInfoWithIdAndSession(courseid,session);
 	        OutputStream output;  
 	        try {  
 	            output = response.getOutputStream(); 
@@ -148,7 +148,7 @@ public class ExportExcelController {
 	}
 	
 	@RequestMapping(value = "/exportCourseStatistics" ,method = {RequestMethod.GET})
-	public String exportCourseStatistics(Integer teacherid,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public String exportCourseStatistics(Integer teacherid, HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        response.reset(); //清除buffer缓存  
 	        //Map<String,Object> map=new HashMap<String,Object>();  
 	        // 指定下载的文件名  

@@ -61,6 +61,30 @@ public class SelectedCourseServiceImpl implements SelectedCourseService {
         return secList;
     }
     
+    //查询课程的当前届选课列表
+    public List<SelectedCourseCustom> findPresentSessionCourse(CourseCustom courseCustom) throws Exception{
+    	List<Selectedcourse> list = selectedcourseMapper.selectByCourseIDAndSession(courseCustom);
+        List<SelectedCourseCustom> secList = new ArrayList<SelectedCourseCustom>();
+        
+        for (Selectedcourse s: list) {
+            SelectedCourseCustom sec = new SelectedCourseCustom();
+            BeanUtils.copyProperties(s, sec);
+            //判断是否完成类该课程
+            if (sec.getMark() != null) {
+                sec.setOver(true);
+            }
+            Student student = studentMapper.selectByPrimaryKey(sec.getStudentid());
+            StudentCustom studentCustom = new StudentCustom();
+            BeanUtils.copyProperties(student, studentCustom);
+
+            sec.setStudentCustom(studentCustom);
+
+            secList.add(sec);
+        }
+
+        return secList;
+    }
+    
     public SelectedCourseCustom findById(Integer id) throws Exception{
     	Selectedcourse selectedCourse=selectedcourseMapper.selectById(id);
     	if(selectedCourse==null) return null;
