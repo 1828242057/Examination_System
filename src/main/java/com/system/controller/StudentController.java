@@ -102,10 +102,11 @@ public class StudentController {
         SelectedCourseCustom selectedCourseCustom = new SelectedCourseCustom();
         selectedCourseCustom.setCourseid(id);
         selectedCourseCustom.setStudentid(Integer.parseInt(username));
-
+        
         SelectedCourseCustom s = selectedCourseService.findOne(selectedCourseCustom);
 
         if (s == null) {
+        	selectedCourseCustom.setSession(1);
         	selectedCourseCustom.setPassed(0);
             selectedCourseService.save(selectedCourseCustom);
             s=selectedCourseService.findOne(selectedCourseCustom);
