@@ -37,6 +37,9 @@ public class ExportExcelController {
 	@Resource(name = "teacherExportCourseStatistics")
 	private ExcelInfo teacherExportCourseStatistics;
 	
+	@Resource(name = "adminExportCourseStatistics")
+	private ExcelInfo adminExportCourseStatistics;
+	
 	@RequestMapping("exportStudentGrade")
 	public String exportStudentGrade(HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        response.reset(); //清除buffer缓存  
@@ -167,6 +170,28 @@ public class ExportExcelController {
 	            e.printStackTrace();  
 	        }
 	        return "redirect:/teacher/courseStatistics";
+	}
+	
+	@RequestMapping(value = "/exportAllCourseStatistics" ,method = {RequestMethod.GET})
+	public String exportAllCourseStatistics(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        response.reset(); //清除buffer缓存  
+	        //Map<String,Object> map=new HashMap<String,Object>();  
+	        // 指定下载的文件名  
+	        response.setContentType("application/vnd.ms-excel;charset=UTF-8");  
+	        response.setHeader("Content-Disposition","attachment;filename="+new String("所有课程统计汇总.xls".getBytes(),"iso-8859-1"));
+	        //导出Excel对象  
+	        XSSFWorkbook workbook = adminExportCourseStatistics.exportExcelInfo();
+	        OutputStream output;  
+	        try {  
+	            output = response.getOutputStream(); 
+	            BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);  
+	            bufferedOutput.flush();  
+	            workbook.write(bufferedOutput);  
+	            bufferedOutput.close();  
+	        } catch (IOException e) {  
+	            e.printStackTrace();  
+	        }
+	        return "redirect:/admin/showCourse";
 	}
 
 }

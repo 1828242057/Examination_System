@@ -170,15 +170,19 @@ public class TeacherController {
     
     //产生单科分值分段统计图  待修改  --廖永杰
     @RequestMapping(value = "/doStatistics")
-    public String doStatistics(Integer id,Model model) throws Exception {
+    public String doStatistics(Integer id, Integer session, Model model) throws Exception {
 		//统计图
     	if (id == null) {
             return "";
         }
-        List<SelectedCourseCustom> list = selectedCourseService.findByCourseID(id);
+    	CourseCustom cc = new CourseCustom();
+    	cc.setSession(session);
+    	cc.setCourseid(id);
+        List<SelectedCourseCustom> list = selectedCourseService.findPresentSessionCourse(cc);
         CourseCustom courseCustom=courseService.findById(id);
         model.addAttribute("selectedCourseList", new Gson().toJson(list));
-        model.addAttribute("coursename", courseCustom.getCoursename());
+        model.addAttribute("courseCustom", courseCustom);
+        model.addAttribute("session",session);
         return "teacher/doStatistics";
     }
     

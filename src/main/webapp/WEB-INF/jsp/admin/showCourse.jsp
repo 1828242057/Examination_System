@@ -33,8 +33,8 @@
 					<div class="panel-heading">
 						<div class="row">
 							<h1 class="col-md-5">课程名单管理</h1>
-							<form class="bs-example bs-example-form col-md-5" role="form"
-								style="margin: 20px 0 10px 0;"
+							<form class="bs-example bs-example-form col-md-4" role="form"
+								style="margin: 20px 0 10px 50px;"
 								action="${pageContext.request.contextPath}/admin/selectCourse"
 								id="form1" method="post">
 								<div class="input-group">
@@ -53,8 +53,16 @@
 										<li><a href="${pageContext.request.contextPath}/admin/courseUpload">文件导入</a></li>
 									</ul>
 							</div>
-							<button class="btn btn-default" style="margin-top:20px;margin-right:20px;float:right"
-							onClick="location.href='${pageContext.request.contextPath}/exportCourse'">导出</button>
+							<div class="btn-group">
+									<button class="btn btn-default" style="margin-top: 20px">导出</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle" style="margin-top: 20px">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath}/exportCourse">导出课程</a></li>
+										<li><a href="${pageContext.request.contextPath}/exportAllCourseStatistics">导出统计分析</a></li>
+									</ul>
+							</div>
 						</div>
 					</div>
 					<table class="table table-bordered">

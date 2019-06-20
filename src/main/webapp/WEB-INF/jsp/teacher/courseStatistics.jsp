@@ -66,7 +66,7 @@
 									<td>${item.experimentalscores}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info"
-											onClick="location.href='${pageContext.request.contextPath}/teacher/doStatistics?id=${item.courseid}'">分析</button>
+											onClick="location.href='${pageContext.request.contextPath}/teacher/doStatistics?id=${item.courseid}&session=${item.session}'">分析</button>
 										<!--弹出框显示分值分段图-->
 									</td>
 								</tr>

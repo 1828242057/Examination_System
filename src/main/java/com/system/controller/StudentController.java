@@ -242,4 +242,25 @@ public class StudentController {
 		
         return "student/showResponsive";
     }
+    
+    @RequestMapping(value = "/rebuild")
+    public String rebuild(int id, Model model) throws Exception {
+    	SelectedCourseCustom scc = selectedCourseService.findById(id);
+    	Course c = courseService.findById(scc.getCourseid());
+    	Scores scores = new Scores();
+    	
+    	scc.setPassed(0);
+    	scc.setMark(null);
+    	scc.setExaminationplan(null);
+    	scc.setSession(c.getSession());
+    	scc.setId(null);
+    	
+    	scoresService.remove(id);
+    	selectedCourseService.remove(id);
+    	selectedCourseService.save(scc);
+    	scores.setSelectedcourseid(selectedCourseService.findOne(scc).getId());
+    	scoresService.save(scores);
+    	
+    	return "redirect:overCourse";
+    }
 }

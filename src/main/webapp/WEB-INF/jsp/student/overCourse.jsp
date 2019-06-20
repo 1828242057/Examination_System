@@ -64,6 +64,7 @@
 								<th>出勤成绩</th>
 								<th>实验成绩</th>
 								<th>总成绩</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,6 +84,8 @@
 												<td style="color: red">${item.attendancescores}</td>
 												<td style="color: red">${item.experimentalscores}</td>
 												<td style="color: red">${item.mark}</td>
+												<td><button class="btn btn-default btn-xs btn-info"
+											onClick="location.href='${pageContext.request.contextPath}/student/rebuild?id=${item.id}'">重修</button></td>
 											</c:when>
 											<c:otherwise>
 												<td>${item.boardscores}</td>
@@ -90,6 +93,7 @@
 												<td>${item.attendancescores}</td>
 												<td>${item.experimentalscores}</td>
 												<td>${item.mark}</td>
+												<td></td>
 											</c:otherwise>
 										</c:choose>
 									</tr>

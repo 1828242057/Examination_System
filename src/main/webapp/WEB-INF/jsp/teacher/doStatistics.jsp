@@ -35,10 +35,21 @@
 								<br>
 								<button type="button" class="btn btn-success active" onclick="returnlist()">返回</button>
 							</div>
-							<div style="margin-left:33%;margin-top:15px;margin-bottom:15px">
-								<h1 style="display:inline">分值分段统计图</h1>
-								<h3 style="display:inline;" >（${coursename}）</h3>
-							</div>						
+							<div style="margin-top:15px;margin-bottom:15px">
+								<h1 style="display:inline;">分值分段统计图</h1>
+								<h4 style="display:inline;" >（${courseCustom.coursename}-第${session}届）</h4>
+								<div class="btn-group" style="margin: 5px 20px 10px 0;float:right;">
+									<button class="btn btn-default">选择届</button>
+									<button data-toggle="dropdown" class="btn dropdown-toggle">
+										<span class="caret" ></span>
+									</button>
+									<ul class="dropdown-menu">
+										<c:forEach var="i" begin="1" end="${courseCustom.session}">
+											<li><a href="${pageContext.request.contextPath}/teacher/doStatistics?id=${courseCustom.courseid}&session=${i}">第${i}届</a></li>
+									    </c:forEach>
+									</ul>
+								</div>		
+							</div>			
 						</div>
 					</div>
 					
