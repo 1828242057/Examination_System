@@ -71,8 +71,11 @@ public class AdminController {
      // 添加学生信息操作
     @RequestMapping(value = "/addStudent", method = {RequestMethod.POST})
     public String addStudent(StudentCustom studentCustom, Model model) throws Exception {
-
+        if((studentCustom.getBirthyear()==null) || studentCustom.getCollegeid()==null || studentCustom.getSex()==null || studentCustom.getUsername()==""
+        		|| studentCustom.getUserid()==null || studentCustom.getGrade()==null) {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
         Boolean result = studentService.save(studentCustom);
+        
+
 
         if (!result) {
             model.addAttribute("message", "学号重复");
@@ -118,8 +121,10 @@ public class AdminController {
 
     // 修改学生信息处理
     @RequestMapping(value = "/editStudent", method = {RequestMethod.POST})
-    public String editStudent(StudentCustom studentCustom) throws Exception {
+    public String editStudent(StudentCustom studentCustom, Model model) throws Exception {
 
+    	if((studentCustom.getBirthyear()==null) || studentCustom.getCollegeid()==null || studentCustom.getSex()==null || studentCustom.getUsername()==""
+        		|| studentCustom.getUserid()==null || studentCustom.getGrade()==null) {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
         studentService.updataById(studentCustom.getUserid(), studentCustom);
 
         //重定向
@@ -189,6 +194,8 @@ public class AdminController {
     // 添加教师信息处理
     @RequestMapping(value = "/addTeacher", method = {RequestMethod.POST})
     public String addTeacher(TeacherCustom teacherCustom, Model model) throws Exception {
+    	
+    	if(teacherCustom.getUserid()==null || teacherCustom.getUsername()=="") {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
 
         Boolean result = teacherService.save(teacherCustom);
 
@@ -228,7 +235,8 @@ public class AdminController {
 
     // 修改教师信息页面处理
     @RequestMapping(value = "/editTeacher", method = {RequestMethod.POST})
-    public String editTeacher(TeacherCustom teacherCustom) throws Exception {
+    public String editTeacher(TeacherCustom teacherCustom, Model model) throws Exception {
+    	if(teacherCustom.getUserid()==null || teacherCustom.getUsername()=="") {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
 
         teacherService.updateById(teacherCustom.getUserid(), teacherCustom);
 
@@ -307,6 +315,12 @@ public class AdminController {
     // 添加课程信息处理
     @RequestMapping(value = "/addCourse", method = {RequestMethod.POST})
     public String addCourse(CourseCustom courseCustom, Model model) throws Exception {
+    	if(courseCustom.getCoursename()=="" || courseCustom.getCoursetime()==""
+    			|| courseCustom.getClassroom()=="" || courseCustom.getCourseweek()==null
+    			|| courseCustom.getScore()==null ||courseCustom.getAttendancescores()==null
+    			|| courseCustom.getBoardscores()==null || courseCustom.getExperimentalscores()==null
+    			|| courseCustom.getHomeworkscores()==null) {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
+    	
     	TeacherCustom t = teacherService.findById(courseCustom.getTeacherid());
     	courseCustom.setTeachername(t.getUsername());
     	courseCustom.setSession(1);
@@ -345,7 +359,12 @@ public class AdminController {
 
     // 修改课程信息页面处理
     @RequestMapping(value = "/editCourse", method = {RequestMethod.POST})
-    public String editCourse(CourseCustom courseCustom) throws Exception {
+    public String editCourse(CourseCustom courseCustom,Model model) throws Exception {
+    	if(courseCustom.getCoursename()=="" || courseCustom.getCoursetime()==""
+    			|| courseCustom.getClassroom()=="" || courseCustom.getCourseweek()==null
+    			|| courseCustom.getScore()==null ||courseCustom.getAttendancescores()==null
+    			|| courseCustom.getBoardscores()==null || courseCustom.getExperimentalscores()==null
+    			|| courseCustom.getHomeworkscores()==null) {model.addAttribute("message", "请填写所有信息！一项都不能空！");return "error";}
     	TeacherCustom t = teacherService.findById(courseCustom.getTeacherid());
     	courseCustom.setTeachername(t.getUsername());
     	

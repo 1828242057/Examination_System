@@ -36,6 +36,12 @@
 							<div class="form-group">
 								<div class="col-sm-10">
 									<input readonly="readonly" type="hidden" class="form-control"
+										name="session" value="${session}">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input readonly="readonly" type="hidden" class="form-control"
 										name="id" id="inputEmail3"
 										value="${selectedCourse.id}">
 								</div>
@@ -67,28 +73,28 @@
 								<label for="inputPassword3" class="col-sm-2 control-label">考试成绩</label>
 								<div class="col-sm-10">
 									<input type="number" name="boardscores" class="form-control"
-										id="inputPassword3" placeholder="请输入成绩">
+										id="inputPassword3" placeholder="请输入成绩" value="${scores.boardscores}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">作业成绩</label>
 								<div class="col-sm-10">
 									<input type="number" name="homeworkscores" class="form-control"
-										id="inputPassword3" placeholder="请输入成绩">
+										id="inputPassword3" placeholder="请输入成绩" value="${scores.homeworkscores}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">出勤成绩</label>
 								<div class="col-sm-10">
 									<input type="number" name="attendancescores" class="form-control"
-										id="inputPassword3" placeholder="请输入成绩">
+										id="inputPassword3" placeholder="请输入成绩" value="${scores.attendancescores}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">实验成绩</label>
 								<div class="col-sm-10">
 									<input type="number" name="experimentalscores" class="form-control"
-										id="inputPassword3" placeholder="请输入成绩">
+										id="inputPassword3" placeholder="请输入成绩" value="${scores.experimentalscores}">
 								</div>
 							</div>
 							<div class="form-group" style="text-align: center">

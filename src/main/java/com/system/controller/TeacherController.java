@@ -89,15 +89,18 @@ public class TeacherController {
     public String markUI(SelectedCourseCustom scc, Model model) throws Exception {
 
         SelectedCourseCustom selectedCourseCustom = selectedCourseService.findOne(scc);
+        Scores s=scoresService.findByID(selectedCourseCustom.getId());
 
         model.addAttribute("selectedCourse", selectedCourseCustom);
+        model.addAttribute("session",scc.getSession());
+        model.addAttribute("scores",s);
 
         return "teacher/mark";
     }
 
     // 打分
     @RequestMapping(value = "/mark", method = {RequestMethod.POST})
-    public String mark(SelectedCourseCustom scc) throws Exception {
+    public String mark(Integer session, SelectedCourseCustom scc) throws Exception {
     	scc.setMark(scc.getAttendancescores()+scc.getBoardscores()+scc.getExperimentalscores()+scc.getHomeworkscores());
         selectedCourseService.updataOne(scc);
         Scores scores=new Scores();
@@ -108,7 +111,7 @@ public class TeacherController {
         scores.setSelectedcourseid(scc.getId());
         scoresService.updateOne(scores);
 
-        return "redirect:/teacher/gradeCourse?id="+scc.getCourseid();
+        return "redirect:/teacher/gradeCourse?id="+scc.getCourseid()+"&session="+session;
     }
 
     //修改密码

@@ -35,19 +35,8 @@
 							<h1 class="col-md-5">已修课程</h1>
 							<!-- 导出成绩表功能要实现  实现跳转 -->
 							<div class="col-md-7">
-								<br>
-								<br>
-								<div class="col-md-9"></div>
-								<div class="btn-group">
-									<button class="btn">导出成绩</button>
-									<button data-toggle="dropdown" class="btn dropdown-toggle">
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#">本学期</a></li>
-										<li><a href="${pageContext.request.contextPath}/exportStudentGrade">所有</a></li>
-									</ul>
-								</div>
+								<button class="btn btn-default" style="margin-top:25px;margin-right:20px;float:right"
+								onClick="location.href='${pageContext.request.contextPath}/exportStudentGrade'">导出成绩</button>
 							</div>
 						</div>
 					</div>

@@ -87,7 +87,7 @@
 									<td>${item.experimentalscores}</td>
 									<td>${item.mark}</td>
 									<td>
-									<button class="btn btn-default btn-xs btn-info" onClick="location.href='${pageContext.request.contextPath}/teacher/mark?studentid=${item.studentid}&courseid=${item.courseid}'">打分</button>
+									<button class="btn btn-default btn-xs btn-info" onClick="location.href='${pageContext.request.contextPath}/teacher/mark?studentid=${item.studentid}&courseid=${item.courseid}&session=${session}'">打分</button>
 									</td>
 								</tr>
 							</c:forEach>
