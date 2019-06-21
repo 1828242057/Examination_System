@@ -15,7 +15,7 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	background:url("images/background3.png") no-repeat;
+	background:url("images/background5.png") no-repeat;
 	background-size:100% 100%;
 	background-attachment:fixed;
 }
