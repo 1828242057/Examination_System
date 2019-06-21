@@ -50,9 +50,12 @@ public class StudentController {
         List<CourseCustom> alreadyList = new ArrayList<CourseCustom>();
         List<CourseCustom> passedList = new ArrayList<CourseCustom>();
         List<CourseCustom> list = null;
+        
         Subject subject = SecurityUtils.getSubject();
         StudentCustom studentCustom = studentService.findStudentAndSelectCourseListByName((String) subject.getPrincipal());
-        List<SelectedCourseCustom> selectedCourseList=studentCustom.getSelectedCourseList();
+        List<SelectedCourseCustom> selectedCourseList;
+        if(studentCustom==null) selectedCourseList=new ArrayList<SelectedCourseCustom>();
+        else selectedCourseList=studentCustom.getSelectedCourseList();
         int i;
         
         //页码对象

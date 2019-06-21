@@ -38,6 +38,13 @@
     from feedback
     where studentID = #{studentid,jdbcType=INTEGER}
   </select>
+  <select id="selectByCourseID" resultMap="BaseResultMap" parameterType="INTEGER">
+  	select 
+  	<include refid="Base_Column_List" />
+    from feedback
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </select>
+  
   
   <update id="update" parameterType="com.system.po.Feedback">
     update feedback

@@ -32,6 +32,15 @@ public class AdminController {
 
     @Resource(name = "userloginServiceImpl")
     private UserloginService userloginService;
+    
+    @Resource(name = "selectedCourseServiceImpl")
+    private SelectedCourseService selectedCourseService;
+    
+    @Resource(name = "scoresServiceImpl")
+    private ScoresService scoresService;
+    
+    @Resource(name = "feedbackServiceImpl")
+    private FeedbackService feedbackService;
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<学生操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -137,6 +146,18 @@ public class AdminController {
         if (id == null) {
             //加入没有带学生id就进来的话就返回学生显示页面
             return "admin/showStudent";
+        }
+        List<Feedback> fList = feedbackService.findByStudentID(id);
+        for(Feedback f:fList)
+        	feedbackService.remove(f.getId());
+        
+        StudentCustom studentCustom = studentService.findStudentAndSelectCourseListByName(id.toString());
+        if(studentCustom!=null) {
+        	List<SelectedCourseCustom> sccList = studentCustom.getSelectedCourseList();
+        	for(SelectedCourseCustom scc:sccList) {
+        		scoresService.remove(scc.getId());
+        		selectedCourseService.remove(scc.getId());
+        	}
         }
         studentService.removeById(id);
         userloginService.removeByName(id.toString());
@@ -251,6 +272,22 @@ public class AdminController {
             //加入没有带教师id就进来的话就返回教师显示页面
             return "admin/showTeacher";
         }
+        List<CourseCustom> ccList = courseService.findByTeacherID(id);
+        List<Feedback> fList = feedbackService.findByTeacherID(id);
+        for(Feedback f:fList)
+        	feedbackService.remove(f.getId());
+        if(ccList!=null) {
+        	List<SelectedCourseCustom> sccList;
+        	for(CourseCustom cc:ccList) {
+        		sccList=selectedCourseService.findByCourseID(cc.getCourseid());
+        		for(SelectedCourseCustom scc:sccList) {
+        			scoresService.remove(scc.getId());
+        			selectedCourseService.remove(scc.getId());
+        		}
+        		courseService.removeById(cc.getCourseid());
+        	}
+        }
+        
         teacherService.removeById(id);
         userloginService.removeByName(id.toString());
 
@@ -382,7 +419,17 @@ public class AdminController {
             return "admin/showCourse";
             
         }
-        courseService.removeById(id);
+        
+        List<Feedback> fList = feedbackService.findByCourseID(id);
+        for(Feedback f:fList)
+        	feedbackService.remove(f.getId());
+        
+        List<SelectedCourseCustom> sccList =selectedCourseService.findByCourseID(id);
+        for(SelectedCourseCustom scc:sccList) {
+        	scoresService.remove(scc.getId());
+        	selectedCourseService.remove(scc.getId());
+        }
+    	courseService.removeById(id);
 
         return "redirect:/admin/showCourse";
     }

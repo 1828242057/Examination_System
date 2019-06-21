@@ -38,4 +38,8 @@ public class FeedbackServiceImpl implements FeedbackService{
 	public List<Feedback> findByStudentID(Integer studentid) throws Exception{
 		return feedbackMapper.selectByStudentID(studentid);
 	}
+	
+	public List<Feedback> findByCourseID(Integer id) throws Exception{
+		return feedbackMapper.selectByCourseID(id);
+	}
 }

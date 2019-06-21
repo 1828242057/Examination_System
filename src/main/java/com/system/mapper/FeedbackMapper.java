@@ -9,5 +9,6 @@ public interface FeedbackMapper {
 	Feedback selectByID(Integer id);
 	List<Feedback> selectByTeacherID(Integer teacherid);
 	List<Feedback> selectByStudentID(Integer studentid);
+	List<Feedback> selectByCourseID(Integer courseid);
 	int deleteByID(Integer id);
 }
